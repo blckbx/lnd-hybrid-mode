@@ -3,15 +3,18 @@
 _Proposed Agenda:_
 
 - Caution clearnet! (security, exposure)
+- Prerequisites: lnd-0.14.0-beta
 - Pros and Cons of hybrid mode, esp. clearnet exposure
   - Availability despite Tor issues
   - therefore higher uptime
   - 
-- Configuring LND.conf: nat/upnp, externalip
+- Configuring LND.conf: 
+  - nat/upnp
+  - externalip
 - Static VS Dynamic IPs
-- Solution: DNS configuration: 
+- Solution: DynDNS 
   - acquiring dyndns
   - externalhosts
-  - NANN IP resolution
+  - NANN: LND's domain resolution
   - IP advertisement on platforms (Amboss, LN+, cheeserobot)
 - 
