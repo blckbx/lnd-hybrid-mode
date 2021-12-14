@@ -1,6 +1,6 @@
-How to set up hybrid mode on LND
+## How to set up hybrid mode on LND
 
-Proposed Agenda: 
+_Proposed Agenda:_
 
 - Caution clearnet! (security, exposure)
 - Pros and Cons of hybrid mode, esp. clearnet exposure
