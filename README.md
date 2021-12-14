@@ -11,7 +11,7 @@ _Proposed Agenda:_
   - Availability despite Tor issues
   - therefore higher uptime
   - ...
-- Configuring `lnd.conf: 
+- Configuring `lnd.conf`: 
   - nat/upnp
   - externalip
 - Static VS Dynamic IPs
