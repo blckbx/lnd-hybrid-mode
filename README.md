@@ -103,7 +103,8 @@ If the above criterias are matched, let's go!
 sudo ufw allow <vpn port> comment 'lnd-vpn-port'
 sudo ufw reload
 ````
-2. Router/Modem: port-forward VPN port
+2. Router/Modem: forward VPN port
+
 This step is very individually handled due to the huge amount of routers and modems out there. Usually the GUI-based interface let us define ports to be forwarded for specific devices within the local network. 
 
 3. LND: configure `lnd.conf` to VPN setup (VPN-IP and VPN-Port):
