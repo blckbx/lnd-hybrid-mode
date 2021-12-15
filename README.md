@@ -131,4 +131,26 @@ listen=0.0.0.0:<internal port> // listen on IPv4 interface
 tor.skip-proxy-for-clearnet-targets=true
 ...
 ````
-4. 
+Note: Internal port and assigned VPN port are not necessarily the same. A router/modem can be configured to map any internal to any external ports.
+
+4. Configure and startup VPN connection
+5. Split-tunneling (depends on VPN client usage): Add Tor process to be excluded of VPN traffic manually (needs to be redone on Tor restart!)
+````
+pgrep -x tor // returns pid of tor process
+<vpn cli> split-tunnel pid add $(pgrep -x tor) // if VPN provides CLI this step can be automated in a script
+````
+
+6. Restart LND and watch logs for errors
+````
+tail -f ~/.lnd/logs/bitcoin/mainnet/lnd.log // adjust to your setup
+````
+
+7. Lookup node's addresses:
+````
+$ lncli getinfo
+
+"uris": [
+        "<pubkey>@<onion-address>.onion:9735",
+        "<pubkey>@111.11.11.12:9999"
+    ],
+````
