@@ -90,9 +90,45 @@ For usage in the wild, DDNS is not used officially. LN explorers like [1ml.com](
 ## **Special Case: VPN Setup** ##
 If anonymity is crucial, setting up clearnet behind VPN could be a solution in this special case. To achieve this, some preconditions must be checked and taken into account:
 
-- Is the VPN server or provider able to forward ports?
-- Is the VPN setup able to split-tunnel processes? 
-- Is the home setup able to forward specific ports (router/modem)?
-- Is the home setup able to allow incoming traffic (firewall)?
+- [x] VPN server or provider is able to forward ports.
+- [x] VPN setup is able to split-tunnel processes.
+- [x] Home setup is able to forward specific ports (router/modem).
+- [x] Home setup is able to allow incoming traffic (firewall).
+- [x] DDNS script is able to re-add tor to split-tunneling processes.
 
+If the above criterias are matched, let's go! 
 
+1. Firewall: allow incoming port
+````
+sudo ufw allow <vpn port> comment 'lnd-vpn-port'
+sudo ufw reload
+````
+2. Router/Modem: port-forward VPN port
+This step is very individually handled due to the huge amount of routers and modems out there. Usually the GUI-based interface let us define ports to be forwarded for specific devices within the local network. 
+
+3. LND: configure `lnd.conf` to VPN setup (VPN-IP and VPN-Port):
+ - Static VPN IP: 
+````
+...
+[Application Options]
+externalip=<static vpn ip>[:<port-forwarded vpn port>]
+listen=0.0.0.0:<internal port> // listen on IPv4 interface
+#listen=[::1]:<internal port> // listen on IPv6 interfaces, if used
+
+[tor]
+tor.skip-proxy-for-clearnet-targets=true
+...
+````
+ - Dynamic VPN IP: 
+````
+...
+[Application Options]
+externalhosts=<ddns-domain>[:<port-forwarded vpn port>]
+listen=0.0.0.0:<internal port> // listen on IPv4 interface
+#listen=[::1]:<internal port> // listen on IPv6 interfaces, if used
+
+[tor]
+tor.skip-proxy-for-clearnet-targets=true
+...
+````
+4. 
