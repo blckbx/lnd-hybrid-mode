@@ -57,8 +57,8 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 
 ## **Static vs Dynamic IP:** ##
-Static IPs are rarely provided for home used internet connections. Most internet provider change IPs on a regular basis or on reconnections. `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP is assigned. Of cource a restart of the lnd.service is needed as well. This is unsustainable for 
-continuous node running. A solution to this is: DDNS
+Static IPs are rarely provided for home used internet connections. Most internet provider change IPs on a regular basis or on reconnections. `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP is assigned. Of course, a restart of `lnd.service` is needed as well. This is unsustainable for 
+continuous node running. One possible solution to this: DDNS
 
 ## **Dynamic DNS:** ##
 _Dynamic DNS (DDNS) is a method of automatically updating a name server in the Domain Name System (DNS), often in real time, with the active DDNS configuration of its configured hostnames, addresses or other information._ ([src](https://en.wikipedia.org/wiki/Dynamic_DNS))
@@ -67,7 +67,7 @@ List of managed DNS providers: https://en.wikipedia.org/wiki/List_of_managed_DNS
 
 Self-hosted solutions: https://en.wikipedia.org/wiki/Comparison_of_DNS_server_software
 
-A script or an app regularly queries an URL to gather the client's current IP address. The IP is saved into a database for later use. LND is able to resolve a given domain / DDNS to its actual IP address. 
+A script or an app regularly queries an URL to gather the client's current IP address. The IP is saved into a database for later use. LND is able to resolve a given domain / DDNS to the actual IP address on its own. 
 ````
 [DBG] NANN: HostAnnouncer checking for any IP changes...
 [DBG] NANN: No IP changes detected for hosts: [ln.example.com]
