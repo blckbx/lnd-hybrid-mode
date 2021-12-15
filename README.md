@@ -57,7 +57,7 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 
 ## **Static vs Dynamic IP:** ##
-Static IPs are rarely provided for home used internet connections. Most internet provider change IPs on a regular basis or on reconnections. `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP is assigned. Of course, a restart of `lnd.service` is needed as well. This is unsustainable for 
+Static IPs are rarely provided for home used internet connections. Most internet provider change IPs on a regular schedule or on reconnects. `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP is assigned. Of course, a restart of `lnd.service` is needed as well. This is unsustainable for 
 continuous node running. One possible solution to this: DDNS
 
 ## **Dynamic DNS:** ##
@@ -67,7 +67,7 @@ List of managed DNS providers: https://en.wikipedia.org/wiki/List_of_managed_DNS
 
 Self-hosted solutions: https://en.wikipedia.org/wiki/Comparison_of_DNS_server_software
 
-A script or an app regularly queries an URL to gather the client's current IP address. The IP is saved into a database for later use. LND is able to resolve a given domain / DDNS to the actual IP address on its own. 
+A script or an app regularly fetches the client's current IP address which is saved for later requests. LND is able to resolve a given domain / DDNS to the actual IP address on its own.
 ````
 [DBG] NANN: HostAnnouncer checking for any IP changes...
 [DBG] NANN: No IP changes detected for hosts: [ln.example.com]
@@ -85,7 +85,7 @@ Additionally a port can be specified, if the default port (9735) can not be used
 [Application Options]
 externalhosts=ln.example.com:9999
 ````
-For usage in the wild, DDNS is not used officially. LN explorers like [1ml.com](https://1ml.com) and [amboss.space](https://www.amboss.space) only display IP addresses. The node itself makes use of the resolved IP address only, looking at URIs on `lncli getinfo`. `<pubkey>@ln.example.com:9735` can be given away for peering on chat groups or printed on business cards ... who knows what it might be good for in the future. 
+For usage in the wild, specified domain is not used officially. LN explorers like [1ml.com](https://1ml.com) and [amboss.space](https://www.amboss.space) only display IP addresses. The node itself makes use of the resolved IP address only, looking at URIs on `lncli getinfo`. `<pubkey>@ln.example.com:9735` can be given away for peering on chat groups or printed on business cards ... who knows what it might be good for in the future. 
 
 ## **Special Case: VPN Setup** ##
 If anonymity is crucial, setting up clearnet behind VPN could be a solution in this special case. To achieve this, some preconditions must be checked and taken into account:
