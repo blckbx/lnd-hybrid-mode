@@ -33,7 +33,8 @@ _Proposed TOC:_
 A word of caution: Running a node behind the Tor network offers many advantages (anonymity, security and usability) and is therefore the recommended way. For nodes with a high number of connected channels and/or high availability requirements Tor can be a hinderance. Tor's organic network is prone to law regulation and censorship of a country's internet service providers. LND also allows running clearnet nodes which do not make use of the Tor network but directly connect to peers. This requires node administrators to take care of the underlying system's security policies. At least one port (default: 9735) needs to be forwarded and exposed to be able to get connected from remote peers. [Setting up a firewall](https://www.maketecheasier.com/how-to-set-up-firewall-linux/) is highly recommended. Not only security is a topic to be thought about, also the risk of being localized by clearnet IP.
 
 ## **Preconditions:** ##
-Hybrid mode was brought to life by Lightning Labs in version `0.14.0-beta`. A new parameter was introduced to split connectivity and separately address Tor-only peers via Tor and clearnet peers via clearnet:
+Hybrid
+-mode was brought to life by Lightning Labs in version `0.14.0-beta`. A new parameter was introduced to split connectivity and separately address Tor-only peers via Tor and clearnet peers via clearnet:
 ````
 [tor]
 
