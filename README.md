@@ -47,7 +47,7 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 
 ## **Configuring `lnd.conf` for hybrid-mode:** ##
-For LND to advertise a node's clearnet connectivity, it needs to know the external IP to connect to. Assuming a static IP for simplicity. If this is not the case for you, an alternative approach (DDNS) is described in the following chapter. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Chose only one of them, based on your router's UPnP capability. In fact there are three options to be set `listen`, `externalip` and `tor.skip-proxy-for-clearnet-targets`:
+For LND to advertise a node's clearnet connectivity, it needs to know the external IP to connect to. Assuming a static IP for simplicity. If this is not the case for you, an alternative approach (DDNS) is described in the following chapter. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat description](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)). In fact there are three options to be set `listen`, `externalip` and `tor.skip-proxy-for-clearnet-targets`:
 ````
 [Application Options]
 externalip=<staticIP>[:<port>] //e.g. 222.22.22.22 (port defaults to 9735, if not specified)
@@ -79,7 +79,7 @@ A script or an app regularly fetches the client's current IP address which is sa
 [DBG] NANN: HostAnnouncer checking for any IP changes...
 [DBG] NANN: IP change detected! ln.example.com:9735: 111.11.11.11:9735 -> 222.22.22.22:9735
 ````
-To achieve this, `lnd.conf` needs to know the domain for resolution:
+Achieving this, `lnd.conf` needs to know the domain for resolution:
 ````
 [Application Options]
 externalhosts=ln.example.com
