@@ -30,11 +30,10 @@ _Proposed TOC:_
 
 
 ## **Caution: Clearnet!** ##
-A word of caution: Running a node behind the Tor network offers many advantages (anonymity, security and usability) and is therefore the recommended way. For nodes with a high number of connected channels and/or high availability requirements Tor can be a hinderance. Tor's organic network is prone to law regulation and censorship of a country's internet service providers. LND also allows running clearnet nodes which do not make use of the Tor network but directly connect to peers. This requires node administrators to take care of the underlying system's security policies. At least one port (default: 9735) needs to be forwarded and exposed to be able to get connected from remote peers. [Setting up a firewall](https://www.maketecheasier.com/how-to-set-up-firewall-linux/) is highly recommended. Not only security is a topic to be thought about, also the risk of being localized by clearnet IP.
+A word of caution: Running a node behind the Tor network offers many advantages (anonymity, security and usability) and is therefore the recommended way. For nodes maintaining a high number of connected channels and/or have high availability requirements Tor can be a hindrance. Tor's organic network is prone to law regulation and censorship of a country's internet service providers. LND also allows running clearnet nodes that do not make use of the Tor network but directly connect to peers. This requires node administrators to take care of the underlying system's security policies. At least one port (default: 9735) needs to be forwarded and exposed to be able to get connected by remote peers. [Setting up a firewall](https://www.maketecheasier.com/how-to-set-up-firewall-linux/) is highly recommended. Not only security is a topic to be thought about, also the risk of being localized by clearnet IP.
 
 ## **Preconditions:** ##
-Hybrid
--mode was brought to life by Lightning Labs in version `0.14.0-beta`. A new parameter was introduced to split connectivity and separately address Tor-only peers via Tor and clearnet peers via clearnet:
+Hybrid-mode was brought to life by Lightning Labs in version `0.14.0-beta`. A new parameter was introduced to split connectivity and separately address Tor-only peers via Tor and clearnet peers via clearnet:
 ````
 [tor]
 
@@ -48,18 +47,19 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 
 ## **Configuring `lnd.conf` for hybrid-mode:** ##
+For LND to advertise a node's clearnet connectivity, it needs to know the external IP to connect to. Assuming a static IP for simplicity. If this is not the case for you, an alternative approach (DDNS) is described in the following chapter. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Chose only one of them, based on your router's UPnP capability. In fact there are three options to be set `listen`, `externalip` and `tor.skip-proxy-for-clearnet-targets`:
 ````
-...
 [Application Options]
-externalip=
-nat=true
-listen=ipv4/ipv6:<port>
+externalip=<staticIP>[:<port>] //e.g. 222.22.22.22 (port defaults to 9735, if not specified)
+#nat=true
+listen=ipv4/ipv6[:<port>]
 
 [tor]
+tor.active=true
+tor.v3=true
 tor.skip-proxy-for-clearnet-targets=true
 ...
 ````
-Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Chose only one of them, based on your Router UPnP cabailities.
 
 ## **Static vs Dynamic IP:** ##
 Static IPs are rarely provided for home use internet connections. Most internet providers change IPs on a regular basis, especially on reconnections. `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP was assigned. Of course, a restart of `lnd.service` is needed as well. This is unsustainable for continuous node running. One possible solution: DDNS
