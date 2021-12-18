@@ -89,18 +89,17 @@ Additionally a port can be specified, if the default port (9735) can not be used
 [Application Options]
 externalhosts=ln.example.com:9999
 ````
-For usage in the wild, specified domain is not used officially. LN explorers like [1ml.com](https://1ml.com) and [amboss.space](https://www.amboss.space) only display IP addresses. The node itself makes use of the resolved IP address only, looking at URIs on `lncli getinfo`. `<pubkey>@ln.example.com:9735` can be given away for peering on chat groups or printed on business cards ... who knows what it might be good for in the future. 
+Lightning explorers like [1ml.com](https://1ml.com) and [amboss.space](https://www.amboss.space) show and use IP addresses. The node itself also makes use of the resolved IP address only (see `lncli getinfo`). Domains can be some fancy give-away for peering invitations on chat groups or printed on business cards ... who knows what it might be good for in the future.
 
 ## **Special Case: VPN Setup** ##
-If anonymity is crucial, setting up clearnet behind VPN could be a solution in this special case. To achieve this, some preconditions must be checked and taken into account:
+If anonymity is crucial, setting up clearnet behind a VPN could be a solution. To achieve this, some preconditions must be checked and met:
 
 - [x] VPN server or provider is able to forward ports.
 - [x] VPN setup is able to split-tunnel processes.
 - [x] Home setup is able to forward specific ports (router/modem).
 - [x] Home setup is able to allow incoming traffic (firewall).
-- [x] DDNS script is able to re-add tor to split-tunneling processes.
 
-If the above criterias are matched, let's go! 
+If so, let's go!
 
 1. Firewall: allow incoming port
 ````
@@ -109,28 +108,28 @@ sudo ufw reload
 ````
 2. Router/Modem: forward VPN port
 
-This step is very individually handled due to the huge amount of routers and modems out there. Usually the GUI-based interface let us define ports to be forwarded for specific devices within the local network. 
+This step is managed very individually due to the huge amount of routers and modems out there. Usually GUI-based webinterfaces let define ports to be forwarded for specific devices within a local network.
 
 3. LND: configure `lnd.conf` to VPN setup (VPN-IP and VPN-Port):
- - Static VPN IP: 
+ - If VPN provides static IPs: 
 ````
 ...
 [Application Options]
-externalip=<static vpn ip>[:<port-forwarded vpn port>]
-listen=0.0.0.0:<internal port> // listen on IPv4 interface
-#listen=[::1]:<internal port> // listen on IPv6 interface, if used
+externalip=<static_VPN_IP>[:<port-forwarded_VPN_port>]
+listen=0.0.0.0:<internal_port> // listen on IPv4 interface
+#listen=[::1]:<internal_port> // listen on IPv6 interface, if used
 
 [tor]
 tor.skip-proxy-for-clearnet-targets=true
 ...
 ````
- - Dynamic VPN IP: 
+ - If VPN provides dynamic IPs and a DDNS was claimed: 
 ````
 ...
 [Application Options]
-externalhosts=<ddns-domain>[:<port-forwarded vpn port>]
-listen=0.0.0.0:<internal port> // listen on IPv4 interface
-#listen=[::1]:<internal port> // listen on IPv6 interface, if used
+externalhosts=<ddns_domain>[:<port-forwarded_VPN_port>]
+listen=0.0.0.0:<internal_port> // listen on IPv4 interface
+#listen=[::1]:<internal_port> // listen on IPv6 interface, if used
 
 [tor]
 tor.skip-proxy-for-clearnet-targets=true
