@@ -19,7 +19,7 @@ _Proposed TOC:_
   - acquiring dyndns
   - externalhosts
   - NANN: LND's domain resolution
-  - IP advertisement on platforms (Amboss, LN+, cheeserobot)
+  - IP advertisement on platforms (Amboss, 1ml)
 - Special Case: VPN
   - port-forwarding VPN provider
   - configuring port in `lnd.conf`
@@ -30,10 +30,10 @@ _Proposed TOC:_
 
 
 ## **Caution: Clearnet!** ##
-A word of caution: Running a node behind the Tor network offers many advantages (anonymity, security and usability) and is therefore the recommended way. For nodes maintaining a high number of connected channels and/or have high availability requirements Tor can be a hindrance. Tor's organic network is prone to law regulation and censorship of a country's internet service providers. LND also allows running clearnet nodes that do not make use of the Tor network but directly connect to peers. This requires node administrators to take care of the underlying system's security policies. At least one port (default: 9735) needs to be forwarded and exposed to be able to get connected by remote peers. [Setting up a firewall](https://www.maketecheasier.com/how-to-set-up-firewall-linux/) is highly recommended. Not only security is a topic to be thought about, also the risk of being localized by clearnet IP.
+A word of caution: Running a node behind the Tor network offers many advantages (anonymity, security and usability) and is therefore the recommended way. For nodes maintaining a high number of connected channels and/or have high availability requirements Tor can be a hindrance. Tor's organic network is prone to law regulation and censorship of a country's internet service providers. LND also allows running clearnet nodes that do not make use of the Tor network but directly connect to peers. This requires node administrators to take care of the underlying system's security policies. At least one port (default: 9735) needs to be forwarded and exposed to be able to get connected by remote peers. [Setting up a firewall](https://www.maketecheasier.com/how-to-set-up-firewall-linux/) is highly recommended. Not only security is a topic to be thought about, also the risk of being localized by clearnet IP. **Only use hybrid-mode if privacy is not of concern!**
 
 ## **Preconditions:** ##
-Hybrid-mode was brought to life by Lightning Labs in version `lnd-0.14.0-beta`. Therefore this guide is based on it. A new option was introduced to split connectivity and to separately address Tor-only peers via Tor and clearnet peers via clearnet:
+[Hybrid-mode](https://docs.lightning.engineering/lightning-network-tools/lnd/quick-tor-setup#hybrid-mode) was brought to life in LND by Lightning Labs in version `lnd-0.14.0-beta`. A new option was introduced to split connectivity and to separately address Tor-only peers via Tor and clearnet peers via clearnet:
 ````
 [tor]
 
