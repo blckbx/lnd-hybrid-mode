@@ -167,6 +167,15 @@ $ lncli getinfo
         "<pubkey>@222.22.22.22:9999"
     ],
 ````
+Alternatively check listening ports with `netstat`:
+````
+netstat -tulpen | grep lnd
+````
+Result:
+````
+tcp6       0      0 :::9999                :::*                    LISTEN      1000       11111111   1111111/lnd
+````
+
 8. Check connectivity with clearnet peers
 
 To test clearnet connectivity find and ask other clearnet peers to try to connect to your node, e.g.: `lncli connect <pubkey>@222.22.22.22:9999`
