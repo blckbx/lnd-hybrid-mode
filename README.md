@@ -33,7 +33,7 @@ _Proposed TOC:_
 A word of caution: Running a node behind the Tor network offers many advantages (anonymity, security and usability) and is therefore the recommended way. For nodes maintaining a high number of connected channels and/or have high availability requirements Tor can be a hindrance. Tor's organic network is prone to law regulation and censorship of a country's internet service providers. LND also allows running clearnet nodes that do not make use of the Tor network but directly connect to peers. This requires node administrators to take care of the underlying system's security policies. At least one port (default: 9735) needs to be forwarded and exposed to be able to get connected by remote peers. [Setting up a firewall](https://www.maketecheasier.com/how-to-set-up-firewall-linux/) is highly recommended. Not only security is a topic to be thought about, also the risk of being localized by clearnet IP.
 
 ## **Preconditions:** ##
-Hybrid-mode was brought to life by Lightning Labs in version `0.14.0-beta`. A new parameter was introduced to split connectivity and separately address Tor-only peers via Tor and clearnet peers via clearnet:
+Hybrid-mode was brought to life by Lightning Labs in version `lnd-0.14.0-beta`. Therefore this guide is based on it. A new option was introduced to split connectivity and to separately address Tor-only peers via Tor and clearnet peers via clearnet:
 ````
 [tor]
 
@@ -47,7 +47,7 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 
 ## **Configuring `lnd.conf` for hybrid-mode:** ##
-For LND to advertise a node's clearnet connectivity, it needs to know the external IP to connect to. Assuming a static IP for simplicity. If this is not the case for you, an alternative approach (DDNS) is described in the following chapter. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat description](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)). In fact there are three options to be set `listen`, `externalip` and `tor.skip-proxy-for-clearnet-targets`:
+For LND to advertise a node's clearnet connectivity it needs to know the external IP to connect to. For the sake of convenience, we are assuming a static IP in this chapter. If this is not the case for you, an alternative approach (DDNS) is described in the following part. First `lnd.conf` needs to be configured by the following options: `externalip`, `nat`, `listen`, `tor.skip-proxy-for-clearnet-targets`. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat description](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)). Example configuration below:
 ````
 [Application Options]
 externalip=<staticIP>[:<port>] //e.g. 222.22.22.22 (port defaults to 9735, if not specified)
@@ -62,7 +62,7 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 
 ## **Static vs Dynamic IP:** ##
-Static IPs are rarely provided for home use internet connections. Most internet providers change IPs on a regular basis, especially on reconnections. `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP was assigned. Of course, a restart of `lnd.service` is needed as well. This is unsustainable for continuous node running. One possible solution: DDNS
+Static IPs are rarely provided for home use internet connections. Most internet providers change IPs on a regular basis or reconnections. Therefore `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP was assigned. Followed by a restart of `lnd.service`, which is needed to reload `lnd.conf`. This is unsustainable for continuous node running. One possible solution: DDNS
 
 ## **Dynamic DNS:** ##
 _Dynamic DNS (DDNS) is a method of automatically updating a name server in the Domain Name System (DNS), often in real time, with the active DDNS configuration of its configured hostnames, addresses or other information._ ([src](https://en.wikipedia.org/wiki/Dynamic_DNS))
@@ -71,7 +71,7 @@ List of managed DNS providers: https://en.wikipedia.org/wiki/List_of_managed_DNS
 
 Self-hosted solutions: https://en.wikipedia.org/wiki/Comparison_of_DNS_server_software
 
-A script or an app regularly fetches the client's current IP address which is saved for later requests. LND is able to resolve a given domain / DDNS to the actual IP address on its own.
+A script or an app regularly fetches the client's current IP address which is saved for later requests. LND is able to resolve a given domain / DDNS to the actual IP address as well. Log output of `HostAnnouncer` listed below:
 ````
 [DBG] NANN: HostAnnouncer checking for any IP changes...
 [DBG] NANN: No IP changes detected for hosts: [ln.example.com]
@@ -79,17 +79,17 @@ A script or an app regularly fetches the client's current IP address which is sa
 [DBG] NANN: HostAnnouncer checking for any IP changes...
 [DBG] NANN: IP change detected! ln.example.com:9735: 111.11.11.11:9735 -> 222.22.22.22:9735
 ````
-Achieving this, `lnd.conf` needs to know the domain for resolution:
+Achieving this, `lnd.conf` needs to know domain for resolution:
 ````
 [Application Options]
 externalhosts=ln.example.com
 ````
-Additionally a port can be specified, if the default port (9735) can not be used:
+Additionally a port can be specified if default port (9735) can not be used:
 ````
 [Application Options]
 externalhosts=ln.example.com:9999
 ````
-Lightning explorers like [1ml.com](https://1ml.com) and [amboss.space](https://www.amboss.space) show and use IP addresses. The node itself also makes use of the resolved IP address only (see `lncli getinfo`). Domains can be some fancy give-away for peering invitations on chat groups or printed on business cards ... who knows what it might be good for in the future.
+Lightning explorers like [1ml.com](https://1ml.com) and [amboss.space](https://www.amboss.space) show and use IP addresses only. The node itself also makes use of the resolved IP address only (see `lncli getinfo`). Domains can be some fancy give-away for peering invitations on chat groups or printed on business cards ... who knows what it might be good for in the future.
 
 ## **Special Case: VPN Setup** ##
 If anonymity is crucial, setting up clearnet behind a VPN could be a solution. To achieve this, some preconditions must be checked and met:
@@ -101,16 +101,16 @@ If anonymity is crucial, setting up clearnet behind a VPN could be a solution. T
 
 If so, let's go!
 
-1. Firewall: allow incoming port
+1. Firewall: allowing incoming port
 ````
 sudo ufw allow <vpn port> comment 'lnd-vpn-port'
 sudo ufw reload
 ````
-2. Router/Modem: forward VPN port
+2. Router/Modem: forwarding VPN port
 
 This step is managed very individually due to the huge amount of routers and modems out there. Usually GUI-based webinterfaces let define ports to be forwarded for specific devices within a local network.
 
-3. LND: configure `lnd.conf` to VPN setup (VPN-IP and VPN-Port):
+3. LND: configuring `lnd.conf` for VPN setup (VPN-IP and VPN-Port):
  - If VPN provides static IPs: 
 ````
 ...
@@ -135,21 +135,26 @@ listen=0.0.0.0:<internal_port> // listen on IPv4 interface
 tor.skip-proxy-for-clearnet-targets=true
 ...
 ````
-Note: Internal port and assigned VPN port are not necessarily the same. A router/modem can be configured to map any internal to any external port.
+Note: Internal port and assigned VPN port are not necessarily the same. A router/modem may be configured to map any internal to any external port.
 
-4. Configure and startup VPN connection
+4. VPN: Configure and startup VPN connection
+
+Set up a VPN connection with whatever your VPN provider recommends (individual step).
+
 5. Split-tunneling (depends on VPN client usage): Add Tor process to be excluded of VPN traffic manually (needs to be re-done on Tor restart!)
 ````
 pgrep -x tor // returns pid of tor process
-<vpn cli> split-tunnel pid add $(pgrep -x tor) // if VPN provides CLI this step can be automated in a script
+<vpn cli> split-tunnel pid add $(pgrep -x tor) // optional step: if VPN provider supports CLI this step can be automated in a script
 ````
 
 6. Restart LND and watch logs for errors
 ````
-tail -f ~/.lnd/logs/bitcoin/mainnet/lnd.log // adjust to your setup
+tail -f ~/.lnd/logs/bitcoin/mainnet/lnd.log // adjust to your node setup
 ````
 
-7. Lookup node's addresses:
+7. Lookup node addresses:
+
+If everything went well, two uri addresses are now displayed. 
 ````
 $ lncli getinfo
 
@@ -158,3 +163,10 @@ $ lncli getinfo
         "<pubkey>@222.22.22.22:9999"
     ],
 ````
+8. Check connectivity with clearnet peers
+
+To test clearnet connectivity find and ask other clearnet peers to try to connect to your node, e.g.: `lncli connect <pubkey>@222.22.22.22:9999`
+
+_______________________________________________________________
+
+Written by [TrezorHannes](https://github.com/TrezorHannes) and [osito](https://github.com/blckbx).
