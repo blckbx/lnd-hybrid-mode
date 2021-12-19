@@ -137,9 +137,13 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 Note: Internal port and assigned VPN port are not necessarily the same. A router/modem may be configured to map any internal to any external port.
 
-4. VPN: Configure and startup VPN connection
+4. VPN: Configure VPN connection and test open port
 
-Set up a VPN connection with whatever your VPN provider recommends (individual step).
+Set up a VPN connection with whatever your VPN provider recommends (individual step). Check if the opened port is reachable from the outside by running `nc` (on Linux) and ping from the internet e.g. with [dnstools.ch](http://en.dnstools.ch/port-scan.html).
+````
+nc -l -p 9999
+````
+
 
 5. Split-tunneling (depends on VPN client usage): Add Tor process to be excluded of VPN traffic manually (needs to be re-done on Tor restart!)
 ````
