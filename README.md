@@ -1,4 +1,17 @@
-## LND: Tor & Clearnet - How to use hybrid-mode
+# LND: Tor & Clearnet - How to use hybrid-mode
+
+## Prelude and Objective
+The lightning network functions in rapid growing speed as infrastructure for payments across the globe between merchants, creators, consumers, institutions and investors alike. Hence the key pillars of sustained growth are their nodes, by providing _realiable_, _liquid_, _discoverable_ and _trustless_ connection points between those parties.
+
+While a growing number of nodes [come online](https://studio.glassnode.com/metrics?a=BTC&category=Lightning&m=lightning.ChannelsCount&zoom=all) every day, a significant share of those are using [Tor](https://www.torproject.org/), which allows them to remain anonymous in a sense that their don't need to reveal their real IP Adress (ka Clearnet IP). However, this methodology paired with the increased demand for Bitcoin payments will continue to stretch Tor's capacity to cater for continued need of supply. It also hampers existing and new node's metric of success being a _realiable_ peering partner.
+
+To mitigate some of ongoing Tor capacity constraints, a node runner may chose to reconsider (see [Chapter Caution: Clearnet!](https://github.com/blckbx/lnd-hybrid-mode#caution-clearnet) offering both, a Tor as well as a Clearnet IP connection option. Next to the drawbacks outlined in the first section below, it has three main net benefits 
+1. allows for alternative discovery, routing and peering in case your own Tor cluster is affected by capacity constraints. Even though mostly temporarily, it cuts into your _reliability_
+2. provides quicker [routing of HTLCs](https://blog.lnrouter.app/htlc-response-time), both for payment and probing. Quite nervous waiting 8 seconds for your transfer confirmation at the supermarket or bar, isn't it?
+3. offers other clearnet-only nodes to connect directly to you. Otherwise it would be required for you as Tor-only to peer-connect to them first, before they can open a channel
+
+With those considerations in mind, have a careful read through the words of caution below, make an educated decision by yourself, and then use our guide below on how to enable a hybrid Tor & Clearnet Node.
+
 
 _Proposed TOC:_
 
@@ -25,8 +38,6 @@ _Proposed TOC:_
   - configuring port in `lnd.conf`
 - Specific Adjustments for Umbrel Users
   - Check for Tor settings
-- Anything to add for cert / SSL settings (?)
-
 
 
 ## **Caution: Clearnet!** ##
@@ -47,7 +58,7 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 
 ## **Configuring `lnd.conf` for hybrid-mode:** ##
-For LND to advertise a node's clearnet connectivity it needs to know the external IP. For the sake of convenience, we are assuming a static IP in this chapter. If this is not the case for you, an alternative approach (DDNS) is described in the following parts. First `lnd.conf` needs to be configured by the following options: `externalip`, `nat`, `listen`, `tor.skip-proxy-for-clearnet-targets`. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat description](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)). Example configuration below:
+For LND to advertise a node's clearnet connectivity it needs to know the external IP. For the sake of convenience, we are assuming a static IP in this chapter. If this is not the case for you, an alternative approach (DDNS) is described in the sections further outlined below. First, `lnd.conf` needs to be configured by the following options: `externalip`, `nat`, `listen`, `tor.skip-proxy-for-clearnet-targets`. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat description](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)). Example configuration below:
 ````
 [Application Options]
 externalip=<staticIP>[:<port>] //e.g. 222.22.22.22 (port defaults to 9735, if not specified)
@@ -94,10 +105,10 @@ Lightning explorers like [1ml.com](https://1ml.com) and [amboss.space](https://w
 ## **Special Case: VPN Setup** ##
 If anonymity is crucial, setting up clearnet behind a VPN could be a solution. To achieve this, some preconditions must be checked and met:
 
-- [x] VPN server or provider is able to forward ports.
-- [x] VPN setup is able to split-tunnel processes.
-- [x] Home setup is able to forward specific ports (router/modem).
-- [x] Home setup is able to allow incoming traffic (firewall).
+- [✅] VPN server or provider is able to forward ports.
+- [✅] VPN setup is able to split-tunnel processes.
+- [✅] Home setup is able to forward specific ports (router/modem).
+- [✅] Home setup is able to allow incoming traffic (firewall).
 
 If so, let's go!
 
@@ -108,7 +119,7 @@ sudo ufw reload
 ````
 2. Router/Modem: forwarding VPN port
 
-This step is managed very individually due to the huge amount of routers and modems out there. Usually GUI-based webinterfaces let define ports to be forwarded for specific devices within a local network.
+This step is managed very individually due to the high amount of routers and modems out there. Usually GUI-based webinterfaces let define ports to be forwarded for specific devices within a local network.
 
 3. LND: configuring `lnd.conf` for VPN setup (VPN-IP and VPN-Port):
  - If VPN provides static IPs: 
