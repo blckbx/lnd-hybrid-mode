@@ -54,7 +54,7 @@ A word of caution: Running a node behind the Tor network offers many advantages 
 tor.skip-proxy-for-clearnet-targets=true
 ````
 
-## **Configuring `lnd.conf` for hybrid-mode:** ##
+## **Configuring hybrid-mode:** ##
 For LND to advertise a node's clearnet connectivity it needs to know the external IP. For the sake of convenience, we are assuming a static IP in this chapter. If this is not the case for you, an alternative approach (DDNS) is described in the sections further outlined below. First, `lnd.conf` needs to be configured by the following options: `externalip`, `nat`, `listen`, `tor.skip-proxy-for-clearnet-targets`. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat description](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)). Example configuration below:
 ````
 [Application Options]
@@ -88,7 +88,7 @@ A script or an app regularly fetches the client's current IP address which is sa
 [DBG] NANN: HostAnnouncer checking for any IP changes...
 [DBG] NANN: IP change detected! ln.example.com:9735: 111.11.11.11:9735 -> 222.22.22.22:9735
 ````
-Achieving this, `lnd.conf` needs to know a reserved domain for IP resolution:
+In this case `lnd.conf` needs to know a reserved DNS domain instead of an external IP. Option `externalhosts` has to be set:
 ````
 [Application Options]
 # specify the DDNS domain (port is optional)
