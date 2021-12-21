@@ -60,7 +60,7 @@ For LND to advertise a node's clearnet connectivity it needs to know the externa
 [Application Options]
 # specify an external IP address e.g. 222.22.22.22:9735
 externalip=222.22.22.22:9735
-# specifiy an internal interface and port
+# specify an internal interface and port
 listen=0.0.0.0:9735 // listen on IPv4 interface
 #listen=[::1]:9735 // listen on IPv6 interface
 
