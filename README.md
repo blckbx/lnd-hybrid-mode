@@ -88,18 +88,17 @@ A script or an app regularly fetches the client's current IP address which is sa
 [DBG] NANN: HostAnnouncer checking for any IP changes...
 [DBG] NANN: IP change detected! ln.example.com:9735: 111.11.11.11:9735 -> 222.22.22.22:9735
 ````
-Achieving this, `lnd.conf` needs to know the reserved domain for resolution:
+Achieving this, `lnd.conf` needs to know a reserved domain for IP resolution:
 ````
 [Application Options]
-externalhosts=ln.example.com
+# specify the DDNS domain (port is optional)
+externalhosts=ln.example.com:9735
 ````
-Additionally a port can be specified if default port (9735) can not be used:
-````
-[Application Options]
-externalhosts=ln.example.com:9999
-````
+
 Lightning explorers like [1ml.com](https://1ml.com) and [amboss.space](https://www.amboss.space) show and use IP addresses only. The node itself also only makes use of the resolved IP address (see `lncli getinfo`). Domains can be some fancy give-away for peering invitations on chat groups or printed on business cards ... who knows what it might be good for in the future.
 
+## **Wrap-Up:** ##
+...
 
 _______________________________________________________________
 
