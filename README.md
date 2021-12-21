@@ -98,7 +98,15 @@ externalhosts=ln.example.com:9735
 Lightning explorers like [1ml.com](https://1ml.com) and [amboss.space](https://www.amboss.space) show and use IP addresses only. The node itself also only makes use of the resolved IP addresses (see `lncli getinfo`). Domains can be some fancy giveaway for peering invitations on chat groups or printed on business cards ... who knows what it might be good for in the future.
 
 ## **Wrap-Up:** ##
-...
+After restarting this configuration results in LND now offering two ways of connecting. These can be verified by command `lncli getinfo`:
+````
+$ lncli getinfo
+
+"uris": [
+        "<pubkey>@<onion-address>.onion:9735",
+        "<pubkey>@222.22.22.22:9735"
+    ],
+````
 
 _______________________________________________________________
 
