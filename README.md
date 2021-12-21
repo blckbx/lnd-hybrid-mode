@@ -100,8 +100,6 @@ Lightning explorers like [1ml.com](https://1ml.com) and [amboss.space](https://w
 ## **Wrap-Up:** ##
 After restarting this configuration results in LND now offering two ways of connecting. These can be verified by command `lncli getinfo`:
 ````
-$ lncli getinfo
-
 "uris": [
         "<pubkey>@<onion-address>.onion:9735",
         "<pubkey>@222.22.22.22:9735"
