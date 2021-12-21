@@ -16,25 +16,15 @@ With those considerations in mind, have a careful read through the words of caut
 ## Table of Content ##
 
 - Prelude & Objective
-  - Problem Statement
-  - Proposed Solution
-- [Caution clearnet!](#caution-clearnet)
-  - security: open incoming port
-  - exposure to risk: localization
-- [Preconditions](#preconditions) 
-  - lnd-0.14.0-beta
-- [Configuring](#configuring-lndconf-for-hybrid-mode) `lnd.conf`: 
-  - nat/upnp
-  - externalip
-- [Static VS Dynamic IPs](#static-vs-dynamic-ip)
-- [Solution: DynDNS](#dynamic-dns) 
-  - acquiring dyndns
-  - externalhosts
-  - NANN: LND's domain resolution
-  - IP advertisement on platforms (Amboss, 1ml)
+- Caution clearnet!
+- Preconditions 
+- Configuring `lnd.conf`: 
+  - Static IP
+  - Dynamic IP: Solution 1 - NAT/UPnP
+  - Dynamic IP: Solution 2 - Dynamic DNS (DDNS)
 - Specific Adjustments for Umbrel Users (_Still to be added_)
   - Check for Tor settings
-- Wrap-Up (_Still to be added_)
+- Wrap-Up
 
 
 ## **Caution: Clearnet!** ##
@@ -55,26 +45,40 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 
 ## **Configuring hybrid-mode:** ##
-For LND to advertise a node's clearnet connectivity it needs to know the external IP. For the sake of convenience, we are assuming a static IP in this chapter. If this is not the case for you, an alternative approach (DDNS) is described in the sections further outlined below. First, `lnd.conf` needs to be configured by the following options: `externalip`, `nat`, `listen`, `tor.skip-proxy-for-clearnet-targets`. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat description](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)). Example configuration below:
+Advertising clearnet connectivity LND needs to know the external IP of a node. There are two different cases of internet connectivity to investigate: Static and dynamic IP connections.
+
+Static IPs are rather easy to set in LND. The external IP address has to be applied to LND's option `externalip`. That's almost it. But most internet providers change IPs on a regular basis or at least on reconnection. Therefore `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP was assigned, followed by a restart of `lnd.service`, which is needed to reload `lnd.conf`. This is unsustainable for continuous node running. Two possible solutions to prevent re-editing and restarting LND: 
+- Solution 1: NAT/UPnP
+- Solution 2: Dynamic DNS (DDNS)
+
+### *Static IP:* ###
+Static IPs are rarely provided for home use internet connections. These are features offered mostly for cable or business internet connections. Having a static IP configuring of `lnd.conf` is much easier. Here we only need to set `externalip`.
 ````
-[Application Options]
-# specify an external IP address e.g. 222.22.22.22:9735
-externalip=222.22.22.22:9735
-# specify an internal interface and port
-listen=0.0.0.0:9735 // listen on IPv4 interface
-#listen=[::1]:9735 // listen on IPv6 interface
-
-[tor]
-tor.active=true
-tor.v3=true
-tor.skip-proxy-for-clearnet-targets=true
-...
+; Adding an external IP will advertise your node to the network. This signals
+; that your node is available to accept incoming channels. If you don't wish to
+; advertise your node, this value doesn't need to be set. Unless specified
+; (with host:port notation), the default port (9735) will be added to the
+; address.
+; externalip=
 ````
 
-## **Static vs Dynamic IP:** ##
-Static IPs are rarely provided for home use internet connections. Most internet providers change IPs on a regular basis or at least on reconnection. Therefore `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP was assigned, followed by a restart of `lnd.service`, which is needed to reload `lnd.conf`. This is unsustainable for continuous node running. One possible solution to prevent re-editing and restarting LND: DDNS
+### *Dynamic IP: Solution 1 - NAT/UPnP:* ###
+Dealing with dynamic IPs tends to be a bit more complex. LND provides an integrated approach to this: NAT. NAT tries to resolve dynamic IPs utilising built-in techniques in order to fetch a node's external IP address. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat description](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)).
+````
+; Instead of explicitly stating your external IP address, you can also enable
+; UPnP or NAT-PMP support on the daemon. Both techniques will be tried and
+; require proper hardware support. In order to detect this hardware support,
+; `lnd` uses a dependency that retrieves the router's gateway address by using
+; different built-in binaries in each platform. Therefore, it is possible that
+; we are unable to detect the hardware and `lnd` will exit with an error
+; indicating this. This option will automatically retrieve your external IP
+; address, even after it has changed in the case of dynamic IPs, and advertise
+; it to the network using the ports the daemon is listening on. This does not
+; support devices behind multiple NATs.
+; nat=true
+````
 
-## **Dynamic DNS:** ##
+### *Dynamic IP: Solution 2 - Dynamic DNS (DDNS):* ###
 _Dynamic DNS (DDNS) is a method of automatically updating a name server in the Domain Name System (DNS), often in real time, with the active DDNS configuration of its configured hostnames, addresses or other information._ ([src](https://en.wikipedia.org/wiki/Dynamic_DNS))
 
  - [List of managed DNS providers](https://en.wikipedia.org/wiki/List_of_managed_DNS_providers)
@@ -98,7 +102,53 @@ externalhosts=ln.example.com:9735
 Lightning explorers like [1ml.com](https://1ml.com) and [amboss.space](https://www.amboss.space) show and use IP addresses only. The node itself also only makes use of the resolved IP addresses (see `lncli getinfo`). Domains can be some fancy giveaway for peering invitations on chat groups or printed on business cards ... who knows what it might be good for in the future.
 
 ## **Wrap-Up:** ##
-After restarting this configuration results in LND now offering two ways of connecting. These can be verified by command `lncli getinfo`:
+
+Summing up the introduced LND options in this article, here are some examples of complete configurations:
+
+*Static IP:*
+````
+[Application Options]
+# specify an external IP address e.g. 222.22.22.22:9735
+externalip=222.22.22.22:9735
+# specify an interface (IPv4/IPv6) and port (default 9735) to listen on
+listen=0.0.0.0:9735 # listen on IPv4 interface or listen=[::1]:9735 for IPv6 interface
+
+[tor]
+tor.active=true
+tor.v3=true
+# activate split connectivity
+tor.skip-proxy-for-clearnet-targets=true
+````
+
+*Dynamic IP - NAT:*
+````
+[Application Options]
+# specify an interface (IPv4/IPv6) and port (default 9735) to listen on
+listen=0.0.0.0:9735 # listen on IPv4 interface or listen=[::1]:9735 for IPv6 interface
+nat=true
+
+[tor]
+tor.active=true
+tor.v3=true
+# activate split connectivity
+tor.skip-proxy-for-clearnet-targets=true
+````
+
+*Dynamic IP - DDNS:*
+````
+[Application Options]
+# specify an interface (IPv4/IPv6) and port (default 9735) to listen on
+listen=0.0.0.0:9735 # listen on IPv4 interface or listen=[::1]:9735 for IPv6 interface
+externalhosts=ln.example.com:9735
+
+[tor]
+tor.active=true
+tor.v3=true
+# activate split connectivity
+tor.skip-proxy-for-clearnet-targets=true
+````
+
+After restarting LND is now offering two ways to connect (URIs). These can be verified by typing `lncli getinfo`:
 ````
 "uris": [
         "<pubkey>@<onion-address>.onion:9735",
