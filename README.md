@@ -1,6 +1,6 @@
 # LND: Tor & Clearnet - How to use hybrid-mode
 
-## Prelude and Objective
+## Prelude and Objective ##
 The lightning network functions in rapid growing speed as infrastructure for payments across the globe between merchants, creators, consumers, institutions and investors alike. Hence the key pillars of sustained growth are their nodes, by providing _realiable_, _liquid_, _discoverable_ and _trustless_ connection points between those parties.
 
 While a growing number of nodes [come online](https://studio.glassnode.com/metrics?a=BTC&category=Lightning&m=lightning.ChannelsCount&zoom=all) every day, a significant share of those are using [Tor](https://www.torproject.org/), which allows them to remain anonymous in a sense that their don't need to reveal their real IP Adress (ka Clearnet IP). However, this methodology paired with the increased demand for Bitcoin payments will continue to stretch Tor's capacity to cater for continued need of supply. It also hampers existing and new node's metric of success being a _realiable_ peering partner.
@@ -13,31 +13,31 @@ To mitigate some of ongoing Tor capacity constraints, a node runner may chose to
 With those considerations in mind, have a careful read through the words of caution below, make an educated decision by yourself, and then use our guide below on how to enable a hybrid Tor & Clearnet Node.
 
 
-_Proposed TOC:_
+## Table of Content ##
 
-- Caution clearnet!
+- Prelude & Objective
+  - Problem Statement
+  - Proposed Solution
+- [Caution clearnet!](#caution-clearnet)
   - security: open incoming port
   - exposure to risk: localization
-- Preconditions: 
+- [Preconditions](#preconditions) 
   - lnd-0.14.0-beta
-- Pros and Cons of hybrid mode, esp. clearnet exposure
-  - Availability despite Tor issues
-  - therefore higher uptime
-  - ...
-- Configuring `lnd.conf`: 
+- [Configuring](#configuring-lndconf-for-hybrid-mode) `lnd.conf`: 
   - nat/upnp
   - externalip
-- Static VS Dynamic IPs
-- Solution: DynDNS 
+- [Static VS Dynamic IPs](#static-vs-dynamic-ip)
+- [Solution: DynDNS](#dynamic-dns) 
   - acquiring dyndns
   - externalhosts
   - NANN: LND's domain resolution
   - IP advertisement on platforms (Amboss, 1ml)
-- Special Case: VPN
+- [Special Case: VPN](#special-case-vpn-setup)
   - port-forwarding VPN provider
   - configuring port in `lnd.conf`
-- Specific Adjustments for Umbrel Users
+- Specific Adjustments for Umbrel Users (_Still to be added_)
   - Check for Tor settings
+- Wrap-Up (_Still to be added_)
 
 
 ## **Caution: Clearnet!** ##
@@ -78,9 +78,8 @@ Static IPs are rarely provided for home use internet connections. Most internet 
 ## **Dynamic DNS:** ##
 _Dynamic DNS (DDNS) is a method of automatically updating a name server in the Domain Name System (DNS), often in real time, with the active DDNS configuration of its configured hostnames, addresses or other information._ ([src](https://en.wikipedia.org/wiki/Dynamic_DNS))
 
-List of managed DNS providers: https://en.wikipedia.org/wiki/List_of_managed_DNS_providers
-
-Self-hosted solutions: https://en.wikipedia.org/wiki/Comparison_of_DNS_server_software
+ - [List of managed DNS providers](https://en.wikipedia.org/wiki/List_of_managed_DNS_providers)
+ - [Self-hosted solutions](https://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)
 
 A script or an app regularly fetches the client's current IP address which is saved for later requests. LND is able to resolve a given domain / DDNS to the actual IP address as well. Log output of `HostAnnouncer` listed below:
 ````
