@@ -13,9 +13,11 @@ If so, let's go!
 sudo ufw allow <vpn port> comment 'lnd-vpn-port'
 sudo ufw reload
 ````
+
 2. Router/Modem: forwarding VPN port
 
 This step is managed very individually due to the high amount of routers and modems out there. Usually GUI-based webinterfaces let define ports to be forwarded for specific devices within a local network.
+
 
 3. LND: configuring `lnd.conf` for VPN setup (VPN-IP and VPN-Port):
  - If VPN provides static IPs: 
@@ -44,11 +46,13 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 Note: Internal port and assigned VPN port are not necessarily the same. A router/modem may be configured to map any internal to any external port.
 
+
 4. VPN: Configure VPN connection and test open port
 
 Set up a VPN connection with whatever your VPN provider recommends (individual step). Check if the opened port is reachable from the outside by running `nc` (on Linux) and ping from the internet e.g. with [dnstools.ch](http://en.dnstools.ch/port-scan.html).
 ````
-nc -l -p 9999
+1. run: nc -l -p 9999
+2. ping port 9999 from the internet
 ````
 
 
