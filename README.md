@@ -32,9 +32,6 @@ With those considerations in mind, have a careful read through the words of caut
   - externalhosts
   - NANN: LND's domain resolution
   - IP advertisement on platforms (Amboss, 1ml)
-- [Special Case: VPN](#special-case-vpn-setup)
-  - port-forwarding VPN provider
-  - configuring port in `lnd.conf`
 - Specific Adjustments for Umbrel Users (_Still to be added_)
   - Check for Tor settings
 - Wrap-Up (_Still to be added_)
@@ -61,9 +58,11 @@ tor.skip-proxy-for-clearnet-targets=true
 For LND to advertise a node's clearnet connectivity it needs to know the external IP. For the sake of convenience, we are assuming a static IP in this chapter. If this is not the case for you, an alternative approach (DDNS) is described in the sections further outlined below. First, `lnd.conf` needs to be configured by the following options: `externalip`, `nat`, `listen`, `tor.skip-proxy-for-clearnet-targets`. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat description](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)). Example configuration below:
 ````
 [Application Options]
-externalip=<staticIP>[:<port>] //e.g. 222.22.22.22 (port defaults to 9735, if not specified)
-#nat=true
-listen=ipv4/ipv6[:<port>]
+# specify an external IP address e.g. 222.22.22.22:9735
+externalip=222.22.22.22:9735
+# specifiy an internal interface and port
+listen=0.0.0.0:9735 // listen on IPv4 interface
+#listen=[::1]:9735 // listen on IPv6 interface
 
 [tor]
 tor.active=true
@@ -101,7 +100,6 @@ externalhosts=ln.example.com:9999
 ````
 Lightning explorers like [1ml.com](https://1ml.com) and [amboss.space](https://www.amboss.space) show and use IP addresses only. The node itself also only makes use of the resolved IP address (see `lncli getinfo`). Domains can be some fancy give-away for peering invitations on chat groups or printed on business cards ... who knows what it might be good for in the future.
 
-...
 
 _______________________________________________________________
 
