@@ -1,4 +1,4 @@
-# LND: Tor & Clearnet - How to use hybrid-mode
+# LND: Tor & Clearnet - How to setup hybrid-mode
 
 ## Prelude and Objective ##
 The lightning network functions in rapid growing speed as infrastructure for payments across the globe between merchants, creators, consumers, institutions and investors alike. Hence the key pillars of sustained growth are their nodes, by providing _reliable_, _liquid_, _discoverable_ and _trustless_ connection points between those parties.
