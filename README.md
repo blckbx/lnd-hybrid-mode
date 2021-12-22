@@ -285,5 +285,10 @@ lncli connect <pubkey>@222.22.22.22:9999
 
 _______________________________________________________________
 
-Written by [TrezorHannes](https://github.com/TrezorHannes) and [osito](https://github.com/blckbx).
-If this guide was of help to you and you want to donate/contribute, please feel free to send a ⚡ tip to: 3446785561@ln.tips
+Written by [TrezorHannes](https://github.com/TrezorHannes) (Hakuna) and [osito](https://github.com/blckbx).
+  
+If this guide was of help to you and you want to donate/contribute, please feel free to send a ⚡ tip to lightning address: 3446785561@ln.tips 
+
+or a 500 sat keysend to
+
+`lncli sendpayment --amt=500 --keysend --dest=025a429655f37844f1247fac32fc2cade8af60ae276b300280ffb796917f812e37`
