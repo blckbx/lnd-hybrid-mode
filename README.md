@@ -160,7 +160,7 @@ tor.streamisolation=false
 tor.skip-proxy-for-clearnet-targets=true
 ````
 
-After restarting LND is now offering two ways to connect (URIs). These can be verified by typing `lncli getinfo`:
+After restarting LND, it is now offering two addresses (URIs). These can be verified by typing `lncli getinfo`:
 ````
 "uris": [
         "<pubkey>@<onion-address>.onion:9735",
