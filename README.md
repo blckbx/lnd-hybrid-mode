@@ -15,7 +15,7 @@ With those considerations in mind, have a careful read through the words of caut
 
 ## Table of Content ##
 
-- [Prelude & Objective](#prelude-and-objective)
+- [Prelude and Objective](#prelude-and-objective)
 - [Caution clearnet!](#caution-clearnet)
 - [Preconditions](#preconditions)
 - [Configuring hybrid-mode: ](#configuring-hybrid-mode)
