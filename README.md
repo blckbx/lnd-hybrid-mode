@@ -31,6 +31,13 @@ With those considerations in mind, have a careful read through the words of caut
 A word of caution: Running a node behind the Tor network offers many advantages (anonymity, security and usability) and is therefore the recommended way. For nodes maintaining a high number of connected channels and/or have high availability requirements Tor can be a hindrance. Tor's organic network is prone to censorship of a country's internet service providers and internal failures of circuits and relays. LND also allows running clearnet nodes that do not make use of the Tor network but directly connect to peers. This requires node administrators to take care of the underlying system's security policies. At least one port (default: 9735) needs to be forwarded and exposed for remote peers to connect to. [Setting up a firewall](https://www.maketecheasier.com/how-to-set-up-firewall-linux/) is highly recommended. Not only security is a topic to be thought about, also the risk of being localized by clearnet IP. **Only use hybrid-mode if privacy is not of concern!**
 
 ## **Preconditions:** ##
+For this guide the following is required:
+- You are tech-savvy and know what you do
+- A fully installed and synchronized node (Umbrel / custom)
+- `lnd-0.14.0-beta` or later
+- `tor.streamisolation=false` [has to be turned off when using hybrid-mode](https://github.com/lightningnetwork/lnd/issues/6005) ⚠
+- For Raspiblitz these features will be implemented and available in [Release v1.8](https://github.com/rootzoll/raspiblitz/milestone/12).
+
 [Hybrid-mode](https://docs.lightning.engineering/lightning-network-tools/lnd/quick-tor-setup#hybrid-mode) was brought to life in LND by Lightning Labs in version `lnd-0.14.0-beta`. A new option was introduced to split connectivity and to separately address Tor-only peers via Tor and clearnet peers via clearnet:
 ````
 [tor]
@@ -43,10 +50,6 @@ A word of caution: Running a node behind the Tor network offers many advantages 
 
 tor.skip-proxy-for-clearnet-targets=true
 ````
-For this guide the following is required:
-- A fully installed and synchronized node (raspiblitz/umbrel/custom)
--
-
 
 ## **Configuring hybrid-mode:** ##
 Advertising clearnet connectivity LND needs to know the external IP of a node. There are two different cases to investigate: static and dynamic IP connections.
@@ -120,6 +123,8 @@ listen=0.0.0.0:9735 # listen on IPv4 interface or listen=[::1]:9735 for IPv6 int
 [tor]
 tor.active=true
 tor.v3=true
+# deactivate streamisolation for hybrid-mode
+tor.streamisolation=false
 # activate split connectivity
 tor.skip-proxy-for-clearnet-targets=true
 ````
@@ -134,6 +139,8 @@ nat=true
 [tor]
 tor.active=true
 tor.v3=true
+# deactivate streamisolation for hybrid-mode
+tor.streamisolation=false
 # activate split connectivity
 tor.skip-proxy-for-clearnet-targets=true
 ````
@@ -148,6 +155,8 @@ externalhosts=ln.example.com:9735
 [tor]
 tor.active=true
 tor.v3=true
+# deactivate streamisolation for hybrid-mode
+tor.streamisolation=false
 # activate split connectivity
 tor.skip-proxy-for-clearnet-targets=true
 ````
