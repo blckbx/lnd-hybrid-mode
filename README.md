@@ -52,7 +52,7 @@ Static IPs are rather easy to set in LND. The external IP address has to be appl
 - Solution 2: Dynamic DNS (DDNS)
 
 ### *Static IP:* ###
-Static IPs are rarely provided for home use internet connections. These are features offered mostly for cable or business internet connections. Having a static IP configuring of `lnd.conf` is much easier. Here we only need to set `externalip`.
+Static IPs are rarely provided for home use internet connections. It is a feature mostly offered to cable or business connections. Having a static IP makes configuring of `lnd.conf` much easier. In this case option `externalip` needs a closer look.
 ````
 ; Adding an external IP will advertise your node to the network. This signals
 ; that your node is available to accept incoming channels. If you don't wish to
