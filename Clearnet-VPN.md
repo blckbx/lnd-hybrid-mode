@@ -1,5 +1,5 @@
 ## **Special Case: VPN Setup** ##
-Preventing exposure of one's real IP there is the possibility to embed a VPN in between. So if anonymity is crucial to you, setting up clearnet behind a VPN could be a solution. To achieve this, some preconditions must be checked and met:
+To prevent exposure of a node's real IP address connecting through VPN is an approach if anonymity is crucial. To achieve this, some preconditions must be checked and met:
 
 - ✅ VPN server or provider is able to forward ports.
 - ✅ VPN setup is able to split-tunnel processes.
