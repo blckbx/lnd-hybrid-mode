@@ -18,7 +18,7 @@ With those considerations in mind, have a careful read through the words of caut
 - [Prelude & Objective](#prelude-and-objective)
 - [Caution clearnet!](#caution-clearnet)
 - [Preconditions](#preconditions)
-- [Configuring `lnd.conf`: ](#configuring-hybrid-mode)
+- [Configuring hybrid-mode`: ](#configuring-hybrid-mode)
   - [Static IP](#static-ip)
   - [Dynamic IP: Solution 1 - NAT/UPnP](#dynamic-ip-solution-1---natupnp)
   - [Dynamic IP: Solution 2 - Dynamic DNS (DDNS)](#dynamic-ip-solution-2---dynamic-dns-ddns)
