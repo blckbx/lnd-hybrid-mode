@@ -48,8 +48,8 @@ tor.skip-proxy-for-clearnet-targets=true
 Advertising clearnet connectivity LND needs to know the external IP of a node. There are two different cases to investigate: static and dynamic IP connections.
 
 Static IPs are rather easy to set in LND. The external IP address has to be applied to LND's option `externalip`. That's almost it. But most internet providers change IPs on a regular basis or at least on reconnection. Therefore `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP was assigned, followed by a restart of `lnd.service`, which is needed to reload `lnd.conf`. This is unsustainable for continuous node running. Two possible solutions to prevent re-editing and restarting LND: 
-- Solution 1: NAT/UPnP
-- Solution 2: Dynamic DNS (DDNS)
+- [Solution 1: NAT/UPnP](#dynamic-ip-solution-1---natupnp)
+- [Solution 2: Dynamic DNS (DDNS)](#dynamic-ip-solution-2---dynamic-dns-ddns)
 
 ### *Static IP:* ###
 Static IPs are rarely provided for home use internet connections. It is a feature mostly offered to cable or business connections. Having a static IP makes configuring of `lnd.conf` much easier. In this case option `externalip` needs a closer look.
