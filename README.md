@@ -43,6 +43,10 @@ A word of caution: Running a node behind the Tor network offers many advantages 
 
 tor.skip-proxy-for-clearnet-targets=true
 ````
+For this guide the following is required:
+- A fully installed and synchronized node (raspiblitz/umbrel/custom)
+-
+
 
 ## **Configuring hybrid-mode:** ##
 Advertising clearnet connectivity LND needs to know the external IP of a node. There are two different cases to investigate: static and dynamic IP connections.
