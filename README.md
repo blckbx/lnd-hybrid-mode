@@ -45,7 +45,7 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 
 ## **Configuring hybrid-mode:** ##
-Advertising clearnet connectivity LND needs to know the external IP of a node. There are two different cases of internet connectivity to investigate: Static and dynamic IP connections.
+Advertising clearnet connectivity LND needs to know the external IP of a node. There are two different cases to investigate: static and dynamic IP connections.
 
 Static IPs are rather easy to set in LND. The external IP address has to be applied to LND's option `externalip`. That's almost it. But most internet providers change IPs on a regular basis or at least on reconnection. Therefore `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP was assigned, followed by a restart of `lnd.service`, which is needed to reload `lnd.conf`. This is unsustainable for continuous node running. Two possible solutions to prevent re-editing and restarting LND: 
 - Solution 1: NAT/UPnP
