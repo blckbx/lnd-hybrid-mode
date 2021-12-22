@@ -22,8 +22,6 @@ With those considerations in mind, have a careful read through the words of caut
   - [Static IP](#static-ip)
   - [Dynamic IP: Solution 1 - NAT/UPnP](#dynamic-ip-solution-1---natupnp)
   - [Dynamic IP: Solution 2 - Dynamic DNS (DDNS)](#dynamic-ip-solution-2---dynamic-dns-ddns)
-- Specific Adjustments for Umbrel Users (_Still to be added_)
-  - Check for Tor settings
 - [Wrap-Up](#wrap-up)
 
 
@@ -35,7 +33,7 @@ For this guide the following is required:
 - You are tech-savvy and know what you do
 - A fully installed and synchronized node (Umbrel / custom)
 - `lnd-0.14.0-beta` or later
-- `tor.streamisolation=false` [has to be turned off when using hybrid-mode](https://github.com/lightningnetwork/lnd/issues/6005) ⚠
+- `tor.streamisolation=false` [must be turned off when using hybrid-mode](https://github.com/lightningnetwork/lnd/issues/6005) ⚠
 - For Raspiblitz these features will be implemented and available in [Release v1.8](https://github.com/rootzoll/raspiblitz/milestone/12).
 
 [Hybrid-mode](https://docs.lightning.engineering/lightning-network-tools/lnd/quick-tor-setup#hybrid-mode) was brought to life in LND by Lightning Labs in version `lnd-0.14.0-beta`. A new option was introduced to split connectivity and to separately address Tor-only peers via Tor and clearnet peers via clearnet:
