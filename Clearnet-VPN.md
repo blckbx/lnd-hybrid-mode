@@ -2,7 +2,7 @@
 To prevent exposure of a node's real IP address connecting through VPN is an approach if anonymity is crucial. To achieve this, some preconditions must be checked and met:
 
 - ✅ VPN server or provider is able to forward ports.
-- ✅ VPN setup is able to split-tunnel processes.
+- ✅ VPN setup is able to split-tunnel processes (killswitch).
 - ✅ Home setup is able to forward specific ports (router/modem).
 - ✅ Home setup is able to allow incoming traffic (firewall).
 
@@ -37,6 +37,7 @@ listen=0.0.0.0:<internal_port> // listen on IPv4 interface
 #listen=[::1]:<internal_port> // listen on IPv6 interface, if used
 
 [tor]
+tor.streamisolation=false
 tor.skip-proxy-for-clearnet-targets=true
 ...
 ````
@@ -49,6 +50,7 @@ listen=0.0.0.0:<internal_port> // listen on IPv4 interface
 #listen=[::1]:<internal_port> // listen on IPv6 interface, if used
 
 [tor]
+tor.streamisolation=false
 tor.skip-proxy-for-clearnet-targets=true
 ...
 ````
@@ -63,12 +65,12 @@ Set up a VPN connection with whatever your VPN provider recommends (individual s
 2. ping port 9999 from the internet
 ````
 
-5. Split-tunneling (depends on VPN client): Add Tor process to be excluded of VPN traffic manually (needs to be re-done on Tor restart!)
+5. Killswitch (depends on VPN client): Exclude Tor process from VPN traffic by VPN client or UFW
 
-Most VPNs route all traffic through their network to protect against data leakage. In this case Tor traffic should be excluded from the VPN network because it is anonymized per se, we want to achieve split connectivity and therefore make use of faster clearnet responding times. 
+Most VPNs route all traffic through their network to protect against data leakage. In this case Tor traffic should be excluded from the VPN network because it is anonymized per se plus we want to add redundancy of connectivity and make use of lower clearnet responding times for faster htlc processing. Killswitch can be applied using UFW as well. To do so, please follow [this guide](https://www.comparitech.com/blog/vpn-privacy/how-to-make-a-vpn-kill-switch-in-linux-with-ufw).If your VPN client supports command line input, excluding the Tor process could be handled like this:
 ````
 pgrep -x tor // returns pid of tor process
-<vpn cli split-tunnel command> pid add $(pgrep -x tor) // optional step: if VPN provider supports CLI this step can be automated in a script, e.g. after detecting a new VPN IP
+<vpn cli split-tunnel command> pid add $(pgrep -x tor) // optional step: if VPN provider supports CLI this step can be automated in a script, e.g. after Tor or node restart
 ````
 
 6. Restart LND and watch logs for errors
