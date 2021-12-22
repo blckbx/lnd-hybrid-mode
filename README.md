@@ -286,4 +286,4 @@ lncli connect <pubkey>@222.22.22.22:9999
 _______________________________________________________________
 
 Written by [TrezorHannes](https://github.com/TrezorHannes) and [osito](https://github.com/blckbx).
-If this guide was of help to you and you want to donate/contribute, please feel free to send a LN tip to: 3446785561@ln.tips
+If this guide was of help to you and you want to donate/contribute, please feel free to send a ⚡ tip to: 3446785561@ln.tips
