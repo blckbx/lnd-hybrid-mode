@@ -95,7 +95,7 @@ A script or an app regularly fetches the client's current IP address which is sa
 In this case `lnd.conf` needs to know a reserved DNS domain instead of an external IP. Option `externalhosts` has to be set:
 ````
 [Application Options]
-# specify the DDNS domain (port is optional)
+# specify DDNS domain (port is optional)
 externalhosts=ln.example.com:9735
 ````
 
