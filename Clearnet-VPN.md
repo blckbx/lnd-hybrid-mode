@@ -22,7 +22,7 @@ sudo ufw allow <internal_port> comment 'lnd-vpn-port'
 sudo ufw reload
 ````
 
-2. Router/Modem: forwarding / mapping internal port to VPN assigned port
+2. Router/Modem: forwarding / mapping internal port to VPN assigned port (check first if this step is necessary)
 
 This step is managed very individually due to high amount of routers and modems out there. Usually GUI-based webinterfaces let define ports to be forwarded for specific devices within a local network.
 
