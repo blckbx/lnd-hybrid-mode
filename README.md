@@ -245,14 +245,14 @@ pgrep -x tor // returns pid of tor process
 <vpn cli split-tunnel command> pid add $(pgrep -x tor) // optional step: if VPN provider supports CLI this step can be automated in a script, e.g. after Tor or node restart
 ````
 
-6. Restart LND and watch logs for errors
+6. Restart LND and watch logs for errors (adjust to your setup)
 ````
-tail -f ~/.lnd/logs/bitcoin/mainnet/lnd.log // adjust to your node setup
+tail -f ~/.lnd/logs/bitcoin/mainnet/lnd.log
 ````
 
 7. Lookup node addresses:
 
-If everything is set, two uri addresses are displayed now. 
+If everything is set, two URI addresses will be displayed. 
 ````
 $ lncli getinfo
 
@@ -285,7 +285,7 @@ lncli connect <pubkey>@222.22.22.22:9999
 
 _______________________________________________________________
 
-Written by [osito](https://github.com/blckbx), Co-Authored & Reviewed by [TrezorHannes](https://github.com/TrezorHannes) (Hakuna).
+Written by [osito](https://github.com/blckbx), Co-Authored & Reviewed by [Hakuna](https://github.com/TrezorHannes).
   
 If this guide was of help to you and you want to send some ♥, please feel free to send a ⚡ tip to our lightning addresses: 
 
