@@ -11,9 +11,9 @@ UPDATEURL=<UPDATE-URL>
 newip=$(curl -s https://api.ipify.org)
 #echo newip=$newip
 
-if [ -f "$FILE" ]; then 
-    echo "null" > $FILE
-fi
+# if [ -f "$FILE" ]; then 
+#    echo "null" > $FILE
+# fi
 
 ip=$(cat $FILE)
 
