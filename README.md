@@ -169,7 +169,7 @@ After restarting LND, it is now offering two addresses (URIs). These can be veri
 ````
 
 ## **Special Case: VPN Setup** ##
-<details><summary>Clearnet through VPN</summary>
+<details><summary>Clearnet over VPN</summary>
 <p>
 To prevent exposure of a node's real IP address connecting through VPN is an approach if anonymity is crucial. To achieve this, some preconditions must be checked and met:
 
