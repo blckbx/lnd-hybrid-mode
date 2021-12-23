@@ -285,14 +285,22 @@ lncli connect <pubkey>@222.22.22.22:9999
 
 _______________________________________________________________
 
-Written by [osito](https://github.com/blckbx), Co-Author [TrezorHannes](https://github.com/TrezorHannes) (Hakuna).
+Written by [osito](https://github.com/blckbx), Co-Authored & Reviewed by [TrezorHannes](https://github.com/TrezorHannes) (Hakuna).
   
-If this guide was of help to you and you want to donate/contribute, please feel free to send a ⚡ tip to lightning address: 
+If this guide was of help to you and you want to send some ♥, please feel free to send a ⚡ tip to our lightning addresses: 
 
 3446785561@ln.tips (osito)
   
 hakuna@btcadresse.de (Hakuna)
 
-or keysend (500sats) to
+or keysend (e.g. 500sats) to
 
-`lncli sendpayment --amt=500 --keysend --dest=025a429655f37844f1247fac32fc2cade8af60ae276b300280ffb796917f812e37`
+osito:
+````
+lncli sendpayment --amt=500 --keysend --dest=025a429655f37844f1247fac32fc2cade8af60ae276b300280ffb796917f812e37
+````
+
+Hakuna:
+````
+lncli sendpayment --amt=500 --keysend --dest=037f66e84e38fc2787d578599dfe1fcb7b71f9de4fb1e453c5ab85c05f5ce8c2e3
+````
