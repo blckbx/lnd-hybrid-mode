@@ -9,7 +9,6 @@ FILE=$PWD/ip.txt
 UPDATEURL=<UPDATE-URL>
 
 newip=$(curl -s https://api.ipify.org)
-#echo newip=$newip
 
 # if [ -f "$FILE" ]; then 
 #    echo "null" > $FILE
@@ -19,8 +18,8 @@ ip=$(cat $FILE)
 
 if [[ "$ip" != "$newip" ]]; then
    echo $newip > $FILE
-   echo "IP change detected"
+   echo "IP ("$newip") change detected"
    curl -s $UPDATEURL
 else
-   echo "No IP change detected"
+   echo "No IP ("$newip") change detected"
 fi
