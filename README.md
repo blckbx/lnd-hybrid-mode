@@ -90,7 +90,7 @@ _Dynamic DNS (DDNS) is a method of automatically updating a name server in the D
  - [List of managed DNS providers](https://en.wikipedia.org/wiki/List_of_managed_DNS_providers)
  - [Self-hosted solutions](https://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)
 
-A script or an app regularly fetches the client's current IP address which is saved for later requests. LND is able to resolve a given domain / DDNS to the actual IP address as well. Log output of `HostAnnouncer` listed below:
+A [script](https://github.com/blckbx/lnd-hybrid-mode/blob/main/update-ddns.sh) or an app regularly fetches the client's current IP address which is saved for later requests. LND is able to resolve a given domain / DDNS to the actual IP address as well. Log output of `HostAnnouncer` listed below:
 ````
 [DBG] NANN: HostAnnouncer checking for any IP changes...
 [DBG] NANN: No IP changes detected for hosts: [ln.example.com]
@@ -194,7 +194,7 @@ sudo ufw allow <internal_port> comment 'lnd-vpn-port'
 sudo ufw reload
 ````
 
-2. Router/Modem: forwarding / mapping internal port to VPN assigned port (check first if this step is necessary)
+2. Router/Modem: forwarding / mapping internal port to VPN assigned port (check first if it is necessary)
 
 This step is managed very individually due to high amount of routers and modems out there. Usually GUI-based webinterfaces let define ports to be forwarded for specific devices within a local network.
 
@@ -287,7 +287,7 @@ _______________________________________________________________
 
 Written by [osito](https://github.com/blckbx), Co-Authored & Reviewed by [Hakuna](https://github.com/TrezorHannes).
   
-If this guide was of help to you and you want to send some ♥, please feel free to send a ⚡ tip to our lightning addresses: 
+If this guide was of help and you want to share some ♥ and contribution, please feel free to send a ⚡ tip to our lightning addresses: 
 
 3446785561@ln.tips (osito)
   
