@@ -287,7 +287,7 @@ _______________________________________________________________
 
 Written by [osito](https://github.com/blckbx), Co-Authored & Reviewed by [Hakuna](https://github.com/TrezorHannes).
   
-If this guide was of help and you want to share some ♥ and contribution, please feel free to send a ⚡ tip to our lightning addresses: 
+If this guide was of help and you want to share some ♥ and contribution, please feel free to send a ⚡ tip to our ⚡ addresses: 
 
 3446785561@ln.tips (osito) | hakuna@btcadresse.de (Hakuna / HODLmeTight)
 
