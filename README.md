@@ -117,7 +117,9 @@ Summing up the introduced LND options in this article, here are some examples of
 # specify an external IP address e.g. 222.22.22.22:9735
 externalip=222.22.22.22:9735
 # specify an interface (IPv4/IPv6) and port (default 9735) to listen on
-listen=0.0.0.0:9735 # listen on IPv4 interface or listen=[::1]:9735 for IPv6 interface
+# listen on IPv4 interface or listen=[::1]:9736 on IPv6 interface
+listen=0.0.0.0:9735
+# listen=[::1]:9736
 
 [tor]
 tor.active=true
@@ -132,7 +134,9 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 [Application Options]
 # specify an interface (IPv4/IPv6) and port (default 9735) to listen on
-listen=0.0.0.0:9735 # listen on IPv4 interface or listen=[::1]:9735 for IPv6 interface
+# listen on IPv4 interface or listen=[::1]:9736 on IPv6 interface
+listen=0.0.0.0:9735 
+# listen=[::1]:9736
 nat=true
 
 [tor]
@@ -148,7 +152,9 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 [Application Options]
 # specify an interface (IPv4/IPv6) and port (default 9735) to listen on
-listen=0.0.0.0:9735 # listen on IPv4 interface or listen=[::1]:9735 for IPv6 interface
+# listen on IPv4 interface or listen=[::1]:9736 on IPv6 interface
+listen=0.0.0.0:9735
+# listen=[::1]:9736
 externalhosts=ln.example.com:9735
 
 [tor]
@@ -160,11 +166,12 @@ tor.streamisolation=false
 tor.skip-proxy-for-clearnet-targets=true
 ````
 
-After restarting LND, it is now offering two addresses (URIs). These can be verified by typing `lncli getinfo`:
+After restarting LND, it is now offering two (or three with IPv6) addresses (URIs). These can be verified by typing `lncli getinfo`:
 ````
 "uris": [
         "<pubkey>@<onion-address>.onion:9735",
-        "<pubkey>@222.22.22.22:9735"
+        "<pubkey>@222.22.22.22:9735",
+        "<pubkey>@[2002::de16:1616]:9736"
     ],
 ````
 
@@ -206,7 +213,7 @@ This step is managed very individually due to high amount of routers and modems 
 [Application Options]
 externalip=<static_VPN_IP>[:<port_forwarded_VPN_port>]
 listen=0.0.0.0:<internal_port> // listen on IPv4 interface
-#listen=[::1]:<internal_port> // listen on IPv6 interface, if used
+#listen=[::1]:<internal_port2> // listen on IPv6 interface, if used
 
 [tor]
 tor.streamisolation=false
@@ -219,7 +226,7 @@ tor.skip-proxy-for-clearnet-targets=true
 [Application Options]
 externalhosts=<ddns_domain>[:<port_forwarded_VPN_port>]
 listen=0.0.0.0:<internal_port> // listen on IPv4 interface
-#listen=[::1]:<internal_port> // listen on IPv6 interface, if used
+#listen=[::1]:<internal_port2> // listen on IPv6 interface, if used
 
 [tor]
 tor.streamisolation=false
