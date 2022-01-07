@@ -296,6 +296,6 @@ Written by [osito](https://github.com/blckbx), Co-Authored & Reviewed by [Hakuna
   
 If this guide was of help and you want to share some ♥ and contribution, please feel free to send a ⚡ tip to our ⚡ addresses: 
 
-3446785561@ln.tips (osito) | hakuna@btcadresse.de (Hakuna / HODLmeTight)
+0x382f9cf667447bb8@ln.tips (osito) | hakuna@btcadresse.de (Hakuna / HODLmeTight)
 
 Also we are always grateful for incoming channels to our nodes: [osito: HodL⚡NodL](https://amboss.space/node/025a429655f37844f1247fac32fc2cade8af60ae276b300280ffb796917f812e37) & [Hakuna: HODLmeTight](https://amboss.space/node/037f66e84e38fc2787d578599dfe1fcb7b71f9de4fb1e453c5ab85c05f5ce8c2e3)
