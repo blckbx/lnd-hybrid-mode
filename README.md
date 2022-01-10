@@ -212,8 +212,10 @@ This step is managed very individually due to high amount of routers and modems 
 ...
 [Application Options]
 externalip=<static_VPN_IP>[:<port_forwarded_VPN_port>]
-listen=0.0.0.0:<internal_port> // listen on IPv4 interface
-#listen=[::1]:<internal_port2> // listen on IPv6 interface, if used
+# listen on IPv4 interface
+listen=0.0.0.0:<internal_port>
+# listen on IPv6 interface, if used
+# listen=[::1]:<internal_port2> 
 
 [tor]
 tor.streamisolation=false
@@ -225,8 +227,10 @@ tor.skip-proxy-for-clearnet-targets=true
 ...
 [Application Options]
 externalhosts=<ddns_domain>[:<port_forwarded_VPN_port>]
-listen=0.0.0.0:<internal_port> // listen on IPv4 interface
-#listen=[::1]:<internal_port2> // listen on IPv6 interface, if used
+# listen on IPv4 interface
+listen=0.0.0.0:<internal_port>
+# listen on IPv6 interface, if used
+#listen=[::1]:<internal_port2>
 
 [tor]
 tor.streamisolation=false
