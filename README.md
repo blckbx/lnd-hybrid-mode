@@ -53,7 +53,7 @@ tor.skip-proxy-for-clearnet-targets=true
 ## **Configuring hybrid-mode:** ##
 Advertising clearnet connectivity LND needs to know the external IP of a node. There are two different cases to investigate: static and dynamic IP connections.
 
-A [static IP](#static-ip) is rather easy to set in LND. The external IP address has to be applied to LND's option `externalip`. That's almost it. But most internet providers change IPs on a regular basis or at least on reconnection. Therefore `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP was assigned, followed by a restart of `lnd.service` to reload `lnd.conf`. This is unsustainable for continuous node running. Two possible solutions to prevent re-editing and restarting LND: 
+A [static IP](#static-ip) is rather easy to set in LND. An obvious pre-requisite is, your ISP provides an IPv4 address to your connection. This external IP address has to be applied to LND's option `externalip`. That's almost it. But most internet providers change IPs on a regular basis or at least on reconnection. Therefore `externalip` in `lnd.conf` would have to be changed accordingly each time a new IP was assigned, followed by a restart of `lnd.service` to reload `lnd.conf`. This is unsustainable for continuous node running. Two possible solutions to prevent re-editing and restarting LND: 
 - [Solution 1: NAT/UPnP](#dynamic-ip-solution-1---natupnp)
 - [Solution 2: Dynamic DNS (DDNS)](#dynamic-ip-solution-2---dynamic-dns-ddns)
 
@@ -298,8 +298,11 @@ _______________________________________________________________
 
 Written by [osito](https://github.com/blckbx), Co-Authored & Reviewed by [Hakuna](https://github.com/TrezorHannes).
   
-If this guide was of help and you want to share some ♥ and contribution, please feel free to send a ⚡ tip to our ⚡ addresses: 
+If this guide was of help and you want to share some ♥ and contribution, please feel free to send a ⚡ tip to our ⚡ addresses:
+  0x382f9cf667447bb8@ln.tips (osito) | hakuna@btcadresse.de (Hakuna / HODLmeTight) 
+  or send some sats via LNURL
+  
+  <img src="https://user-images.githubusercontent.com/35168804/150093420-8ada8010-0b03-4d93-a14a-cce15b3608ea.png" width="100" height="100">
 
-0x382f9cf667447bb8@ln.tips (osito) | hakuna@btcadresse.de (Hakuna / HODLmeTight)
 
 Also we are always grateful for incoming channels to our nodes: [osito: HodL⚡NodL](https://amboss.space/node/025a429655f37844f1247fac32fc2cade8af60ae276b300280ffb796917f812e37) & [Hakuna: HODLmeTight](https://amboss.space/node/037f66e84e38fc2787d578599dfe1fcb7b71f9de4fb1e453c5ab85c05f5ce8c2e3)
