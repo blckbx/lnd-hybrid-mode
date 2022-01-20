@@ -114,8 +114,9 @@ Summing up the introduced LND options in this article, here are some examples of
 *Static IP:*
 ````
 [Application Options]
-# specify an external IP address e.g. 222.22.22.22:9735
+# specify an external IP address e.g. 222.22.22.22:9735 / [2002::de16:1616]:9736
 externalip=222.22.22.22:9735
+# externalip=[2002::de16:1616]:9736
 # specify an interface (IPv4/IPv6) and port (default 9735) to listen on
 # listen on IPv4 interface or listen=[::1]:9736 on IPv6 interface
 listen=0.0.0.0:9735
