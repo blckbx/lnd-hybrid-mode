@@ -301,9 +301,6 @@ Written by [osito](https://github.com/blckbx), Co-Authored & Reviewed by [Hakuna
   
 If this guide was of help and you want to share some ♥ and contribution, please feel free to send a ⚡ tip to our ⚡ addresses:
   0x382f9cf667447bb8@ln.tips (osito) | hakuna@btcadresse.de (Hakuna / HODLmeTight) 
-  or send some sats via LNURL
   
-  <img src="https://user-images.githubusercontent.com/35168804/150093420-8ada8010-0b03-4d93-a14a-cce15b3608ea.png" width="100" height="100">
-
 
 Also we are always grateful for incoming channels to our nodes: [osito: HodL⚡NodL](https://amboss.space/node/025a429655f37844f1247fac32fc2cade8af60ae276b300280ffb796917f812e37) & [Hakuna: HODLmeTight](https://amboss.space/node/037f66e84e38fc2787d578599dfe1fcb7b71f9de4fb1e453c5ab85c05f5ce8c2e3)
