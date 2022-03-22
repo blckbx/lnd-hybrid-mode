@@ -204,7 +204,7 @@ sudo ufw reload
 
 2. Router/Modem: forwarding / mapping internal port to VPN assigned port (check first if it is necessary)
 
-This step is managed very individually due to high amount of routers and modems out there. Usually GUI-based webinterfaces let define ports to be forwarded to specific devices within a local network.
+This step is managed very individually due to high amount of routers and modems out there. Usually GUI-based webinterfaces let define ports to be forwarded to specific devices within a local network. ([FritzBox port-sharing example](https://www.edpnet.be/en/support/installation-and-usage/internet/manage-fritz!box/how-to-set-up-a-port-forwarding-on-a-fritzbox.html))
 
 
 3. LND: configuring `lnd.conf` for VPN setup:
