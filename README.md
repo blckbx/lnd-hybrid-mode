@@ -176,9 +176,12 @@ After restarting LND, it is now offering two (or three with IPv6) addresses (URI
     ],
 ````
 
-## **Special Case: VPN Setup** ##
-<details><summary>Clearnet over VPN</summary>
-<p>
+###############################################################################################
+###############################################################################################
+
+
+## **Special Case: VPN Setup - Clearnet over VPN** ##
+
 To prevent exposure of a node's real IP address connecting through VPN is an approach if anonymity is crucial. To achieve this, some preconditions must be checked and met:
 
 - ✅ VPN server or provider is able to forward ports.
