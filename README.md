@@ -23,7 +23,7 @@ With those considerations in mind, have a careful read through the words of caut
   - [Dynamic IP: Solution 1 - NAT/UPnP](#dynamic-ip-solution-1---natupnp)
   - [Dynamic IP: Solution 2 - Dynamic DNS (DDNS)](#dynamic-ip-solution-2---dynamic-dns-ddns)
 - [Wrap-Up](#wrap-up)
-- [Special Case: Clearnet through VPN](#special-case-vpn-setup)
+- [Special Case: Clearnet over VPN](#special-case-vpn-setup---clearnet-over-vpn)
 
 
 ## **Caution: Clearnet!** ##
