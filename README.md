@@ -242,7 +242,6 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
  - If VPN provides dynamic IPs and a DDNS was claimed: 
 ````
-...
 [Application Options]
 externalhosts=<ddns_domain>[:<port_forwarded_VPN_port>]
 # listen on IPv4 interface
@@ -253,11 +252,11 @@ listen=0.0.0.0:<internal_port>
 [tor]
 tor.streamisolation=false
 tor.skip-proxy-for-clearnet-targets=true
-...
+````
 
 For better understanding: clearnet over VPN (dynamic IP) with DDNS resolution
 
-```
+````
                      lnd -- dns domain resolver (dns to vpn-ip) ------| 
                       |                                               | dns provider: ln.node.com
                       |      | ---- dns updater (vpn-ip to dns) ------|
@@ -266,8 +265,6 @@ For better understanding: clearnet over VPN (dynamic IP) with DDNS resolution
    localhost _________|______|____vpn: split-tunnel _______vpn _______|
                                                    \                  | internet      
                                                     \______tor _______|
-```
-
 ````
 Note: Internal port and assigned VPN port are not necessarily the same. A router/modem may be configured to map any internal to any external port.
 
