@@ -198,7 +198,8 @@ clearnet over vpn
                                \______tor _______|
  advantages
  - redundancy / failover
- - faster htlc response times
+ - faster htlc response times (clearnet)
+ - hidden clearnet IP
 ```
 
 
