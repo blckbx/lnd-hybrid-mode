@@ -189,6 +189,19 @@ To prevent exposure of a node's real IP address connecting through VPN is an app
 - ✅ Home setup is able to forward specific ports (router/modem).
 - ✅ Home setup is able to allow incoming traffic (firewall).
 
+
+```
+clearnet over vpn
+
+   localhost _____split-tunnel _______vpn _______|
+                              \                  | internet      
+                               \______tor _______|
+ advantages
+ - redundancy / failover
+ - faster htlc response times
+```
+
+
 Check? Let's go!
 
 0. Declarations
