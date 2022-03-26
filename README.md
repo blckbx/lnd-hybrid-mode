@@ -254,6 +254,20 @@ listen=0.0.0.0:<internal_port>
 tor.streamisolation=false
 tor.skip-proxy-for-clearnet-targets=true
 ...
+
+For better understanding: clearnet over VPN (dynamic IP) with DDNS resolution
+
+```
+                     lnd -- dns domain resolver (dns to vpn-ip) ------| 
+                      |                                               | dns provider: ln.node.com
+                      |      | ---- dns updater (vpn-ip to dns) ------|
+                      |      |                                        
+                      |      |                                        
+   localhost _________|______|____vpn: split-tunnel _______vpn _______|
+                                                   \                  | internet      
+                                                    \______tor _______|
+```
+
 ````
 Note: Internal port and assigned VPN port are not necessarily the same. A router/modem may be configured to map any internal to any external port.
 
@@ -309,6 +323,7 @@ lncli connect <pubkey>@222.22.22.22:9999
 
 }
 ````
+
 
 _______________________________________________________________
 
