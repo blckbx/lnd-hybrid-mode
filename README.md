@@ -325,6 +325,3 @@ If this guide was of help and you want to share some ♥ and contribution, pleas
     or send some sats via [LNURL](https://pwbtc.duckdns.org/lnurlp/1)
 
   <img src="https://user-images.githubusercontent.com/35168804/150093420-8ada8010-0b03-4d93-a14a-cce15b3608ea.png" width="100" height="100">
-
-
-Also we are always grateful for incoming channels to our nodes: [Hakuna: HODLmeTight](https://amboss.space/node/037f66e84e38fc2787d578599dfe1fcb7b71f9de4fb1e453c5ab85c05f5ce8c2e3)
