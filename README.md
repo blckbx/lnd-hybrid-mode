@@ -118,9 +118,9 @@ Summing up the introduced LND options in this article, here are some examples of
 externalip=222.22.22.22:9735
 # externalip=[2002::de16:1616]:9736
 # specify an interface (IPv4/IPv6) and port (default 9735) to listen on
-# listen on IPv4 interface or listen=[::1]:9736 on IPv6 interface
+# listen on IPv4 interface or listen=[::]:9736 on IPv6 interface
 listen=0.0.0.0:9735
-# listen=[::1]:9736
+# listen=[::]:9736
 
 [tor]
 tor.active=true
@@ -135,9 +135,9 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 [Application Options]
 # specify an interface (IPv4/IPv6) and port (default 9735) to listen on
-# listen on IPv4 interface or listen=[::1]:9736 on IPv6 interface
+# listen on IPv4 interface or listen=[::]:9736 on IPv6 interface
 listen=0.0.0.0:9735 
-# listen=[::1]:9736
+# listen=[::]:9736
 nat=true
 
 [tor]
@@ -153,9 +153,9 @@ tor.skip-proxy-for-clearnet-targets=true
 ````
 [Application Options]
 # specify an interface (IPv4/IPv6) and port (default 9735) to listen on
-# listen on IPv4 interface or listen=[::1]:9736 on IPv6 interface
+# listen on IPv4 interface or listen=[::]:9736 on IPv6 interface
 listen=0.0.0.0:9735
-# listen=[::1]:9736
+# listen=[::]:9736
 externalhosts=ln.example.com:9735
 
 [tor]
@@ -247,7 +247,7 @@ externalhosts=<ddns_domain>[:<port_forwarded_VPN_port>]
 # listen on IPv4 interface
 listen=0.0.0.0:<internal_port>
 # listen on IPv6 interface, if used
-#listen=[::1]:<internal_port2>
+#listen=[::]:<internal_port2>
 
 [tor]
 tor.streamisolation=false
