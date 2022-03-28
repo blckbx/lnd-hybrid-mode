@@ -265,7 +265,7 @@ Note: Internal port and assigned VPN port are not necessarily the same. A router
 
 3. VPN: Configure VPN connection and check port reachability
 
-Set up a VPN connection with whatever your VPN provider recommends (individual step). Check if the opened port is reachable from the outside by running `nc` (on Linux) and ping from the internet e.g. with [dnstools.ch](http://en.dnstools.ch/port-scan.html).
+Set up a VPN connection with whatever your VPN provider recommends (individual step). Check if the opened port is reachable from the outside by running `nc` (on Linux) and ping from the internet e.g. with a [port scanner](https://www.whatismyip.com/port-scanner).
 ````
 1. run: nc -l -p 9999 (9999 is port_forwarded_VPN_port)
 2. ping port 9999 from the internet
