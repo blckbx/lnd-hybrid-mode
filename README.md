@@ -31,9 +31,9 @@ A word of caution: Running a node behind the Tor network offers many advantages 
 
 ## **Preconditions:** ##
 For this guide the following is required:
-- You are tech-savvy and know what you do
+- You are tech-savvy and know what you do ⚠
 - A fully installed and synchronized node (Umbrel / custom)
-- For RaspiBlitz these features will be implemented and available in [Release v1.8](https://github.com/rootzoll/raspiblitz/milestone/12). 
+- For RaspiBlitz these features might be implemented and available in [Release v1.8](https://github.com/rootzoll/raspiblitz/issues/2787). 
 - `lnd-0.14.2-beta` or later
 - `tor.streamisolation=false` [must be turned off when using hybrid-mode](https://github.com/lightningnetwork/lnd/issues/6005) ⚠
 
