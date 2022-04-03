@@ -188,6 +188,7 @@ To prevent exposure of a node's real IP address connecting through VPN is an app
 - ✅ VPN setup is able to split-tunnel processes.
 - ✅ Home setup is able to allow incoming traffic (firewall).
 
+In case no VPN provider fits above and your own requirements, there is also the choice to get a VPS server and set up VPN server on your own. A great guide by Wiredancer can be found [here](https://github.com/Wired4ncer/lnd_via_vpn).
 
 ```
 clearnet over vpn
