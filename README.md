@@ -38,6 +38,7 @@ For this guide the following is required:
 - `tor.streamisolation=false` [must be turned off when using hybrid-mode](https://github.com/lightningnetwork/lnd/issues/6005) ⚠
 
 [Hybrid-mode](https://docs.lightning.engineering/lightning-network-tools/lnd/quick-tor-setup#hybrid-mode) was brought to life in LND by Lightning Labs in version `lnd-0.14.0-beta`. A new option was introduced to split connectivity and to separately address Tor-only peers via Tor and clearnet peers via clearnet:
+
 ````
 [tor]
 
@@ -185,10 +186,10 @@ After restarting LND, it is now offering two (or three with IPv6) addresses (URI
 To prevent exposure of a node's real IP address connecting through VPN is an approach if anonymity is crucial. To achieve this, some preconditions must be checked and met:
 
 - ✅ VPN server or provider is able to forward ports.
-- ✅ VPN setup is able to split-tunnel processes.
+- ✅ VPN setup is able to split-tunnel processes (if possible).
 - ✅ Home setup is able to allow incoming traffic (firewall).
 
-In case no VPN provider fits above and your own requirements, there is also the choice to get a VPS server and set up VPN server on your own. A great guide by Wiredancer can be found [here](https://github.com/Wired4ncer/lnd_via_vpn).
+In case no VPN provider fits the above and your own requirements, there is also the choice of renting a VPS server and setting up a VPN server on your own. A great guide by Wiredancer can be found [here](https://github.com/Wired4ncer/lnd_via_vpn) and another one by [Hakuna here](https://github.com/TrezorHannes/vps-lnbits).
 
 ```
 clearnet over vpn
@@ -253,7 +254,7 @@ For better understanding: clearnet over VPN (dynamic IP) with DDNS resolution
 
 ````
                      lnd -- dns domain resolver (dns to vpn-ip) ------| 
-                      |                                               | dns provider: ln.node.com
+                      |                                               | dns provider: ln.node.com (domain example) <-> current IP
                       |      | ---- dns updater (vpn-ip to dns) ------|
                       |      |                                        
                       |      |                                        
@@ -261,26 +262,27 @@ For better understanding: clearnet over VPN (dynamic IP) with DDNS resolution
                                                    \                  | internet      
                                                     \______tor _______|
 ````
-Note: Internal port and assigned VPN port are not necessarily the same. A router/modem may be configured to map any internal to any external port.
-
 
 3. VPN: Configure VPN connection and check port reachability
 
-Set up a VPN connection with whatever your VPN provider recommends (individual step). Check if the opened port is reachable from the outside by running `nc` (on Linux) and ping from the internet e.g. with a [port scanner](https://www.whatismyip.com/port-scanner).
+Set up a VPN connection with whatever your VPN provider recommends (OpenVPN/Wireguard). Check if the opened port is reachable from the outside by running `nc` (on Linux) and ping from the internet e.g. with a [port scanner](https://www.whatismyip.com/port-scanner).
 ````
 1. run: nc -l -p 9999 (9999 is port_forwarded_VPN_port)
 2. ping port 9999 from the internet
 ````
 
-4. Split-Tunneling: Exclude Tor process from VPN traffic by VPN client or UFW/iptables
+4. Split-Tunneling: Exclude Tor process from VPN traffic by VPN client or UFW/iptables (if possible)
 
-Most VPNs route all traffic through their network to protect against data leakage. In this case Tor traffic should be excluded from the VPN network because it is anonymized per se plus we want to add redundancy of connectivity and make use of lower clearnet responding times for faster htlc processing. Split-tunneling can be applied using UFW or iptables as well. To do so, please follow [this guide](https://www.comparitech.com/blog/vpn-privacy/how-to-make-a-vpn-kill-switch-in-linux-with-ufw).If your VPN client supports command line input, excluding the Tor process could be handled like this (e.g. mullvad cli):
+Most VPNs route all traffic through their network to protect against data leakage. In this case Tor traffic should be excluded from the VPN network (if possible) because it is anonymized per se plus we want to add redundancy of connectivity and make use of lower clearnet responding times for faster htlc processing. Split-tunneling can be applied using UFW or iptables as well. To do so, please follow [this guide](https://www.comparitech.com/blog/vpn-privacy/how-to-make-a-vpn-kill-switch-in-linux-with-ufw).If your VPN supports excluding apps and command line input, excluding the Tor process could be handled like this (e.g. mullvad cli):
+
 ````
 pgrep -x tor // returns pid of tor process
 mullvad split-tunnel pid add $(pgrep -x tor) // optional step: if VPN provider supports CLI this step can be automated in a script, e.g. after Tor restart
 ````
 
+
 5. Restart LND and watch logs for errors (adjust to your setup)
+
 ````
 tail -f ~/.lnd/logs/bitcoin/mainnet/lnd.log
 ````
