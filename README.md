@@ -39,7 +39,7 @@ For this guide the following is required:
 
 [Hybrid-mode](https://docs.lightning.engineering/lightning-network-tools/lnd/quick-tor-setup#hybrid-mode) was brought to life in LND by Lightning Labs in version `lnd-0.14.0-beta`. A new option was introduced to split connectivity and to separately address Tor-only peers via Tor and clearnet peers via clearnet:
 
-````
+```ini
 [tor]
 
 ; Allow the node to connect to non-onion services directly via clearnet. This
@@ -49,7 +49,7 @@ For this guide the following is required:
 ; be used only if privacy is not a concern.
 
 tor.skip-proxy-for-clearnet-targets=true
-````
+```
 
 ## **Configuring hybrid-mode:** ##
 Advertising clearnet connectivity LND needs to know the external IP of a node. There are two different cases to investigate: static and dynamic IP connections.
@@ -60,18 +60,19 @@ A [static IP](#static-ip) is rather easy to set in LND. An obvious pre-requisite
 
 ### *Static IP:* ###
 Static IPs are rarely provided for home use internet connections. It is a feature mostly offered to cable or business connections. Having a static IP makes configuring of `lnd.conf` much easier. In this case option `externalip` needs a closer look.
-````
+```ini
 ; Adding an external IP will advertise your node to the network. This signals
 ; that your node is available to accept incoming channels. If you don't wish to
 ; advertise your node, this value doesn't need to be set. Unless specified
 ; (with host:port notation), the default port (9735) will be added to the
 ; address.
-; externalip=
-````
+
+externalip=
+```
 
 ### *Dynamic IP: Solution 1 - NAT/UPnP:* ###
 Dealing with dynamic IPs tends to be a bit more complex. LND provides an integrated approach to this: NAT. NAT tries to resolve dynamic IPs utilising built-in techniques in order to fetch a node's external IP address. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat traversal](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)).
-````
+```ini
 ; Instead of explicitly stating your external IP address, you can also enable
 ; UPnP or NAT-PMP support on the daemon. Both techniques will be tried and
 ; require proper hardware support. In order to detect this hardware support,
@@ -82,8 +83,9 @@ Dealing with dynamic IPs tends to be a bit more complex. LND provides an integra
 ; address, even after it has changed in the case of dynamic IPs, and advertise
 ; it to the network using the ports the daemon is listening on. This does not
 ; support devices behind multiple NATs.
-; nat=true
-````
+
+nat=true
+```
 
 ### *Dynamic IP: Solution 2 - Dynamic DNS (DDNS):* ###
 _Dynamic DNS (DDNS) is a method of automatically updating a name server in the Domain Name System (DNS), often in real time, with the active DDNS configuration of its configured hostnames, addresses or other information._ ([src](https://en.wikipedia.org/wiki/Dynamic_DNS))
@@ -92,19 +94,19 @@ _Dynamic DNS (DDNS) is a method of automatically updating a name server in the D
  - [Self-hosted solutions](https://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)
 
 A [script](https://github.com/blckbx/lnd-hybrid-mode/blob/main/update-ddns.sh) or an app regularly fetches the client's current IP address which is saved for later requests. LND is able to resolve a given domain / DDNS to the actual IP address as well. Log output of `HostAnnouncer` listed below:
-````
+```log
 [DBG] NANN: HostAnnouncer checking for any IP changes...
 [DBG] NANN: No IP changes detected for hosts: [ln.example.com]
 ...
 [DBG] NANN: HostAnnouncer checking for any IP changes...
 [DBG] NANN: IP change detected! ln.example.com:9735: 111.11.11.11:9735 -> 222.22.22.22:9735
-````
+```
 In this case `lnd.conf` needs to know a reserved DNS domain instead of an external IP. Option `externalhosts` has to be set:
-````
+```ini
 [Application Options]
 # specify DDNS domain (port optional)
 externalhosts=ln.example.com:9735
-````
+```
 
 Lightning explorers like [1ml.com](https://1ml.com) and [amboss.space](https://www.amboss.space) show and use IP addresses only. The node itself also only makes use of the resolved IP addresses (see `lncli getinfo`). Domains can be some fancy giveaway for peering invitations on chat groups or printed on business cards ... who knows what it might be good for in the future.
 
@@ -113,7 +115,7 @@ Lightning explorers like [1ml.com](https://1ml.com) and [amboss.space](https://w
 Summing up the introduced LND options in this article, here are some examples of complete configurations:
 
 *Static IP:*
-````
+```ini
 [Application Options]
 # specify an external IP address e.g. 222.22.22.22:9735 / [2002::de16:1616]:9736
 externalip=222.22.22.22:9735
@@ -130,10 +132,10 @@ tor.v3=true
 tor.streamisolation=false
 # activate split connectivity
 tor.skip-proxy-for-clearnet-targets=true
-````
+```
 
 *Dynamic IP - NAT:*
-````
+```ini
 [Application Options]
 # specify an interface (IPv4/IPv6) and port (default 9735) to listen on
 # listen on IPv4 interface or listen=[::]:9736 on IPv6 interface
@@ -148,10 +150,10 @@ tor.v3=true
 tor.streamisolation=false
 # activate split connectivity
 tor.skip-proxy-for-clearnet-targets=true
-````
+```
 
 *Dynamic IP - DDNS:*
-````
+```ini
 [Application Options]
 # specify an interface (IPv4/IPv6) and port (default 9735) to listen on
 # listen on IPv4 interface or listen=[::]:9736 on IPv6 interface
@@ -166,16 +168,16 @@ tor.v3=true
 tor.streamisolation=false
 # activate split connectivity
 tor.skip-proxy-for-clearnet-targets=true
-````
+```
 
 After restarting LND, it is now offering two (or three with IPv6) addresses (URIs). These can be verified by typing `lncli getinfo`:
-````
+```sh
 "uris": [
         "<pubkey>@<onion-address>.onion:9735",
         "<pubkey>@222.22.22.22:9735",
         "<pubkey>@[2002::de16:1616]:9736"
     ],
-````
+```
 
 #############################################################################################
 #############################################################################################
@@ -207,23 +209,22 @@ clearnet over vpn
 Check? Let's go!
 
 0. Declarations
-````
+```ini
 internal_port = Internal LND listening port (for easy setup: internal_port = port-forwarded-VPN_port, but does not necessarily have to be)
 port_forwarded_VPN_port = VPN assigned forwarding port
 static_VPN_IP = IP of your VPN service/provider
 ddns_domain = DDNS (DNS domain) for IP resolution
-````
+```
 
 1. Firewall: allowing incoming port
-````
-sudo ufw allow <internal_port> comment 'lnd-vpn-port'
-sudo ufw reload
+```sh
+$ sudo ufw allow <internal_port> comment 'lnd-vpn-port'
+$ sudo ufw reload
 ````
 
 2. LND: configuring `lnd.conf` for VPN setup:
  - If VPN provides a static IP: 
-````
-...
+```ini
 [Application Options]
 externalip=<static_VPN_IP>[:<port_forwarded_VPN_port>]
 # listen on IPv4 interface
@@ -234,10 +235,9 @@ listen=0.0.0.0:<internal_port>
 [tor]
 tor.streamisolation=false
 tor.skip-proxy-for-clearnet-targets=true
-...
-````
- - If VPN provides dynamic IPs and a DDNS was claimed: 
-````
+```
+ - If VPN provides dynamic IPs and a DDNS was registered: 
+```ini
 [Application Options]
 externalhosts=<ddns_domain>[:<port_forwarded_VPN_port>]
 # listen on IPv4 interface
@@ -248,7 +248,7 @@ listen=0.0.0.0:<internal_port>
 [tor]
 tor.streamisolation=false
 tor.skip-proxy-for-clearnet-targets=true
-````
+```
 
 For better understanding: clearnet over VPN (dynamic IP) with DDNS resolution
 
@@ -275,48 +275,48 @@ Set up a VPN connection with whatever your VPN provider recommends (OpenVPN/Wire
 
 Most VPNs route all traffic through their network to protect against data leakage. In this case Tor traffic should be excluded from the VPN network (if possible) because it is anonymized per se plus we want to add redundancy of connectivity and make use of lower clearnet responding times for faster htlc processing. Split-tunneling can be applied using UFW or iptables as well. To do so, please follow [this guide](https://www.comparitech.com/blog/vpn-privacy/how-to-make-a-vpn-kill-switch-in-linux-with-ufw).If your VPN supports excluding apps and command line input, excluding the Tor process could be handled like this (e.g. mullvad cli):
 
-````
-pgrep -x tor // returns pid of tor process
-mullvad split-tunnel pid add $(pgrep -x tor) // optional step: if VPN provider supports CLI this step can be automated in a script, e.g. after Tor restart
-````
+```sh
+$ pgrep -x tor // returns pid of tor process
+$ mullvad split-tunnel pid add $(pgrep -x tor) // optional step: if VPN provider supports CLI this step can be automated in a script, e.g. after Tor restart
+```
 
 
 5. Restart LND and watch logs for errors (adjust to your setup)
 
-````
-tail -f ~/.lnd/logs/bitcoin/mainnet/lnd.log
-````
+```sh
+$ tail -f ~/.lnd/logs/bitcoin/mainnet/lnd.log
+```
 
 6. Lookup node addresses:
 
 If everything is set, two URI addresses will be displayed. 
-````
+```sh
 $ lncli getinfo
 
 "uris": [
         "<pubkey>@<onion-address>.onion:9735",
         "<pubkey>@222.22.22.22:9999"
     ],
-````
+```
 Alternatively check listening ports with `netstat`:
-````
-netstat -tulpen | grep lnd
-````
+```sh
+$ netstat -tulpen | grep lnd
+```
 Result:
-````
+```sh
 tcp6       0      0 :::9999                :::*                    LISTEN      1000       11111111   1111111/lnd
-````
+```
 
 7. Check connectivity with clearnet peers
 
 To test clearnet connectivity find and ask other clearnet peers to connect to your node, e.g.: `lncli connect <pubkey>@222.22.22.22:9999`
 Successful connection:
-````
-lncli connect <pubkey>@222.22.22.22:9999
+```sh
+$ lncli connect <pubkey>@222.22.22.22:9999
 {
 
 }
-````
+```
 
 
 _______________________________________________________________
