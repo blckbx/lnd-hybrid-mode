@@ -3,7 +3,8 @@
 # For some DDNS providers it is possible to trigger an IP update manually
 # this script checks the current IP and compares it with the last one fetched.
 # If it differs, new IP is saved and update-URL is triggered. DDNS provider fetches new IP.
-# usage: setup script as cronjob every x hours
+# usage: setup script as cronjob every x hours, like e.g.:
+# */5 * * * * /<path>/<to>/update-ddns.sh 2&>1 | /usr/bin/logger -t update-ddns
 
 # local file to save and compare fetched external IP
 FILE=$PWD/ip.txt
