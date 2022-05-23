@@ -13,20 +13,26 @@ UPDATEURL=<UPDATE-URL>
 newip=$(curl -s https://api.ipify.org)
 sleep 10
 
-if [[ "$newip" = "" ]]; then
-   exit
+# something went wrong, no IP returned
+if [ "$newip" = "" ]; then
+   exit 1
 fi
 
-if [[ ! -f "$FILE" ]]; then
+# create temp file if not already present
+if [ ! -f "$FILE" ]; then
     echo "null" > $FILE
 fi
 
+# get last saved IP from temp file
 ip=$(cat $FILE)
 
-if [[ "$ip" != "$newip" ]]; then
+# compare saved IP to new IP, call update-URL if they differ
+if [ "$ip" != "$newip" ]; then
    echo $newip > $FILE
    echo "IP ("$newip") change detected"
    curl -s $UPDATEURL &>/dev/null
 else
    echo "No IP ("$newip") change detected"
 fi
+
+exit 0
