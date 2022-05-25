@@ -71,7 +71,7 @@ externalip=
 ```
 
 ### *Dynamic IP: Solution 1 - NAT/UPnP:* ###
-Dealing with dynamic IPs tends to be a bit more complex. LND provides an integrated approach to this: NAT. NAT tries to resolve dynamic IPs utilising built-in techniques in order to fetch a node's external IP address. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat traversal](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)).
+Dealing with dynamic IPs tends to be a bit more complex. LND provides an integrated approach to this: NAT. NAT tries to resolve dynamic IPs utilising built-in techniques in order to fetch a node's external IP address. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat traversal](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)). ⚠ Concluding from feedback on this, `nat` really doesn't work well and should be avoided!
 ```ini
 ; Instead of explicitly stating your external IP address, you can also enable
 ; UPnP or NAT-PMP support on the daemon. Both techniques will be tried and
@@ -117,30 +117,25 @@ Summing up the introduced LND options in this article, here are some examples of
 *Static IP:*
 ```ini
 [Application Options]
-# specify an external IP address e.g. 222.22.22.22:9735 / [2002::de16:1616]:9736
+# set an external IP address e.g. 222.22.22.22:9735 / [2002::de16:1616]:9736
 externalip=222.22.22.22:9735
-# externalip=[2002::de16:1616]:9736
-# specify an interface (IPv4/IPv6) and port (default 9735) to listen on
-# listen on IPv4 interface or listen=[::]:9736 on IPv6 interface
+# specify an interface and port (default 9735) to listen on
 listen=0.0.0.0:9735
-# listen=[::]:9736
 
 [tor]
 tor.active=true
 tor.v3=true
 # deactivate streamisolation for hybrid-mode
 tor.streamisolation=false
-# activate split connectivity
+# activate hybrid connectivity
 tor.skip-proxy-for-clearnet-targets=true
 ```
 
 *Dynamic IP - NAT:*
 ```ini
 [Application Options]
-# specify an interface (IPv4/IPv6) and port (default 9735) to listen on
-# listen on IPv4 interface or listen=[::]:9736 on IPv6 interface
+# specify an interface and port (default 9735) to listen on
 listen=0.0.0.0:9735 
-# listen=[::]:9736
 nat=true
 
 [tor]
@@ -148,17 +143,15 @@ tor.active=true
 tor.v3=true
 # deactivate streamisolation for hybrid-mode
 tor.streamisolation=false
-# activate split connectivity
+# activate hybrid connectivity
 tor.skip-proxy-for-clearnet-targets=true
 ```
 
 *Dynamic IP - DDNS:*
 ```ini
 [Application Options]
-# specify an interface (IPv4/IPv6) and port (default 9735) to listen on
-# listen on IPv4 interface or listen=[::]:9736 on IPv6 interface
+# specify an interface and port (default 9735) to listen on
 listen=0.0.0.0:9735
-# listen=[::]:9736
 externalhosts=ln.example.com:9735
 
 [tor]
@@ -166,16 +159,15 @@ tor.active=true
 tor.v3=true
 # deactivate streamisolation for hybrid-mode
 tor.streamisolation=false
-# activate split connectivity
+# activate hybrid connectivity
 tor.skip-proxy-for-clearnet-targets=true
 ```
 
-After restarting LND, it is now offering two (or three with IPv6) addresses (URIs). These can be verified by typing `lncli getinfo`:
+After restarting LND, it is now offering two addresses (URIs). These can be verified by calling `lncli getinfo`:
 ```sh
 "uris": [
         "<pubkey>@<onion-address>.onion:9735",
-        "<pubkey>@222.22.22.22:9735",
-        "<pubkey>@[2002::de16:1616]:9736"
+        "<pubkey>@222.22.22.22:9735"
     ],
 ```
 
