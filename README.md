@@ -117,8 +117,8 @@ Summing up the introduced LND options in this article, here are some examples of
 *Static IP:*
 ```ini
 [Application Options]
-# set an external IP address e.g. 222.22.22.22:9735 / [2002::de16:1616]:9736
-externalip=222.22.22.22:9735
+# set an external IP address e.g. 222.22.22.22:9735
+externalip=222.22.22.22
 # specify an interface and port (default 9735) to listen on
 listen=0.0.0.0:9735
 
@@ -134,7 +134,7 @@ tor.skip-proxy-for-clearnet-targets=true
 *Dynamic IP - NAT:*
 ```ini
 [Application Options]
-# specify an interface and port (default 9735) to listen on
+# set an interface and port (default 9735) to listen on
 listen=0.0.0.0:9735 
 nat=true
 
@@ -150,8 +150,9 @@ tor.skip-proxy-for-clearnet-targets=true
 *Dynamic IP - DDNS:*
 ```ini
 [Application Options]
-# specify an interface and port (default 9735) to listen on
+# set an interface and port (default 9735) to listen on
 listen=0.0.0.0:9735
+# set the registered DDNS domain
 externalhosts=ln.example.com:9735
 
 [tor]
