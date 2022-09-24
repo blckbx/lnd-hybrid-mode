@@ -35,7 +35,7 @@ For this guide the following is required:
 - A fully installed and synchronized node (Umbrel / custom)
 - For RaspiBlitz these features might be implemented and available in [Release v1.8](https://github.com/rootzoll/raspiblitz/issues/2787). 
 - `lnd-0.14.2-beta` or later
-- `tor.streamisolation=false` [must be turned off when using hybrid-mode](https://github.com/lightningnetwork/lnd/issues/6005) ⚠
+- `tor.streamisolation=false` [must be turned off/not present when using hybrid-mode](https://github.com/lightningnetwork/lnd/issues/6005) ⚠
 
 [Hybrid-mode](https://docs.lightning.engineering/lightning-network-tools/lnd/quick-tor-setup#hybrid-mode) was brought to life in LND by Lightning Labs in version `lnd-0.14.0-beta`. A new option was introduced to split connectivity and to separately address Tor-only peers via Tor and clearnet peers via clearnet:
 
@@ -60,6 +60,7 @@ A [static IP](#static-ip) is rather easy to set in LND. An obvious pre-requisite
 
 ### *Static IP:* ###
 Static IPs are rarely provided for home use internet connections. It is a feature mostly offered to cable or business connections. Having a static IP makes configuring of `lnd.conf` much easier. In this case option `externalip` needs a closer look.
+
 ```ini
 ; Adding an external IP will advertise your node to the network. This signals
 ; that your node is available to accept incoming channels. If you don't wish to
@@ -71,7 +72,10 @@ externalip=
 ```
 
 ### *Dynamic IP: Solution 1 - NAT/UPnP:* ###
-Dealing with dynamic IPs tends to be a bit more complex. LND provides an integrated approach to this: NAT. NAT tries to resolve dynamic IPs utilising built-in techniques in order to fetch a node's external IP address. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat traversal](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)). ⚠ Concluding from feedback on this, `nat` really doesn't work well and should be avoided!
+Dealing with dynamic IPs tends to be a bit more complex. LND provides an integrated approach to this: NAT. NAT tries to resolve dynamic IPs utilising built-in techniques in order to fetch a node's external IP address. Notable that LND doesn't handle the setting of `externalip` and `nat` at the same time well. Choose only one of them, based on your router's UPnP capabilities ([nat traversal](https://docs.lightning.engineering/lightning-network-tools/lnd/nat_traversal)). 
+
+⚠ Concluding from feedback on this, `nat` really doesn't work well and should be avoided!
+
 ```ini
 ; Instead of explicitly stating your external IP address, you can also enable
 ; UPnP or NAT-PMP support on the daemon. Both techniques will be tried and
@@ -311,6 +315,7 @@ $ lncli connect <pubkey>@222.22.22.22:9999
 }
 ```
 
+⚠️ Sidenote: If you look for an easy-to-go clearnet over vpn solution, you might take alook at [tunnelsats.com](https://tunnelsats.com)!
 
 _______________________________________________________________
 
