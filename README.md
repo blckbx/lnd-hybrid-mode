@@ -319,10 +319,10 @@ $ lncli connect <pubkey>@222.22.22.22:9999
 
 _______________________________________________________________
 
-Written by [osito](https://github.com/blckbx), Co-Authored & Reviewed by [Hakuna](https://github.com/TrezorHannes).
+Written by [blckbx](https://github.com/blckbx), Co-Authored & Reviewed by [Hakuna](https://github.com/TrezorHannes).
   
 If this guide was of help and you want to share some ♥ and contribution, please feel free to send a ⚡ tip to our ⚡ addresses:
-  0x382f9cf667447bb8@ln.tips (osito) | hakuna@getalby.com (Hakuna / HODLmeTight) 
+  0x382f9cf667447bb8@ln.tips (blckbx) | hakuna@getalby.com (Hakuna / HODLmeTight) 
     or send some sats via [LNURL](https://pwbtc.duckdns.org/lnurlp/link/1)
 
   <img src="https://user-images.githubusercontent.com/35168804/150093420-8ada8010-0b03-4d93-a14a-cce15b3608ea.png" width="100" height="100">
