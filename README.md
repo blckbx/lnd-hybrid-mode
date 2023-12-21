@@ -176,16 +176,15 @@ After restarting LND, it is now offering two addresses (URIs). These can be veri
     ],
 ```
 
-#############################################################################################
-#############################################################################################
+#######################################################
 
 
 ## **Special Case: VPN Setup - Clearnet over VPN** ##
 
 To prevent exposure of a node's real IP address connecting through VPN is an approach if anonymity is crucial. To achieve this, some preconditions must be checked and met:
 
-- ✅ VPN server or provider is able to forward ports.
-- ✅ VPN setup is able to split-tunnel processes (if possible).
+- ✅ VPN server or provider is able to forward static ports.
+- ✅ VPN setup is able to split-tunnel processes (optional).
 - ✅ Home setup is able to allow incoming traffic (firewall).
 
 In case no VPN provider fits the above and your own requirements, there is also the choice of renting a VPS server and setting up a VPN server on your own. A great guide by Wiredancer can be found [here](https://github.com/Wired4ncer/lnd_via_vpn) and another one by [Hakuna](https://github.com/TrezorHannes/vps-lnbits).
@@ -270,11 +269,11 @@ Set up a VPN connection with whatever your VPN provider recommends (OpenVPN/Wire
 
 4. Split-Tunneling: Exclude Tor process from VPN traffic by VPN client or UFW/iptables (if possible)
 
-Most VPNs route all traffic through their network to protect against data leakage. In this case Tor traffic should be excluded from the VPN network (if possible) because it is anonymized per se plus we want to add redundancy of connectivity and make use of lower clearnet responding times for faster htlc processing. Split-tunneling can be applied using UFW or iptables as well. To do so, please follow [this guide](https://www.comparitech.com/blog/vpn-privacy/how-to-make-a-vpn-kill-switch-in-linux-with-ufw).If your VPN supports excluding apps and command line input, excluding the Tor process could be handled like this (e.g. mullvad cli):
+Most VPNs route all traffic through their network to protect against data leakage. In this case Tor traffic should be excluded from the VPN network (if possible) because it is anonymized per se plus we want to add redundancy of connectivity and make use of lower clearnet responding times for faster htlc processing. Split-tunneling can be applied using UFW or iptables as well. To do so, please follow [this guide](https://www.comparitech.com/blog/vpn-privacy/how-to-make-a-vpn-kill-switch-in-linux-with-ufw).If your VPN supports excluding apps and command line input, excluding the Tor process could be handled like this:
 
 ```sh
 $ pgrep -x tor // returns pid of tor process
-$ mullvad split-tunnel pid add $(pgrep -x tor) // optional step: if VPN provider supports CLI this step can be automated in a script, e.g. after Tor restart
+$ vpncli split-tunnel pid add $(pgrep -x tor) // optional step: if VPN provider supports CLI this step can be automated in a script, e.g. after Tor restart
 ```
 
 
@@ -297,7 +296,7 @@ $ lncli getinfo
 ```
 Alternatively check listening ports with `netstat`:
 ```sh
-$ netstat -tulpen | grep lnd
+$ sudo netstat -tlpen | grep lnd
 ```
 Result:
 ```sh
